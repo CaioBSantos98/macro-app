@@ -5,6 +5,8 @@ export const authState = atom({
     default: {
         isAuthenticated: false,
         userId: null,
-        userEmail: null
+        userName: null,
+        userEmail: null,
+        userBirthDate: null
     }
 })

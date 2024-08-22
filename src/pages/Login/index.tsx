@@ -1,6 +1,20 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { useState } from "react";
+import { login } from "../../utils/login";
 
 const Login = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const retorno = login(email, password);
+        console.log(retorno);
+        setEmail('');
+        setPassword('');
+    }
+
     return (
         <Box component="section" sx={{ p: 2, display: "flex", justifyContent: "center" }}>
             <Box component="form" sx={{
@@ -15,14 +29,16 @@ const Login = () => {
                 border: "2px solid grey",
                 padding: "20px",
                 marginTop: "50px"
-            }}>
+            }} 
+            onSubmit={(event) => submitHandler(event)}>
                 <Typography variant="h4" component="h2">Faça seu login</Typography>
                 <TextField
                     required
                     id="outlined-required"
                     label="Email"
                     type="email"
-                    defaultValue=""
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
                     sx={{width: "100%"}}
                 />
                 <TextField
@@ -30,10 +46,11 @@ const Login = () => {
                     id="outlined-password-input"
                     label="Password"
                     type="password"
-                    autoComplete="current-password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
                     sx={{width: "100%"}}
                 />
-                <Button variant="contained" sx={{
+                <Button variant="contained" type="submit" sx={{
                     width: "100%",
                     height: "56px",
                     fontSize: "16px"
