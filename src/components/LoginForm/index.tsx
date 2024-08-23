@@ -1,9 +1,10 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { login } from "../../utils/login";
+import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { authState } from "../../state/atom";
-import { useNavigate } from "react-router-dom";
+import { login } from "../../utils/login";
+import NewUserModal from "../NewUserModal";
 
 const LoginForm = () => {
     const setAuthState = useSetRecoilState(authState)
@@ -24,7 +25,7 @@ const LoginForm = () => {
         navigate("/profile")
     }
 
-    return(
+    return (
         <Box component="form" sx={{
             maxWidth: "350px",
             width: "100%",
@@ -42,7 +43,7 @@ const LoginForm = () => {
             <Typography variant="h4" component="h2">Faça seu login</Typography>
             <TextField
                 required
-                id="outlined-required"
+                autoComplete="username"
                 label="Email"
                 type="email"
                 value={email}
@@ -51,8 +52,8 @@ const LoginForm = () => {
             />
             <TextField
                 required
-                id="outlined-password-input"
-                label="Password"
+                autoComplete="current-password"
+                label="Senha"
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
@@ -65,16 +66,7 @@ const LoginForm = () => {
             }}>Entrar</Button>
             <Typography variant="overline" sx={{ display: "flex", gap: "5px" }}>
                 Não possui conta?
-                <Typography variant="overline" sx={{
-                    cursor: "pointer",
-                    textDecoration: "underline",
-                    transition: "0.2s",
-                    "&:hover": {
-                        color: "blue"
-                    }
-                }}>
-                    Cadastre-se aqui
-                </Typography>
+                <NewUserModal />
             </Typography>
         </Box>
     )
