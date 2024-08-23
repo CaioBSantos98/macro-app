@@ -1,16 +1,22 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { authState } from "../../state/atom";
 import { login } from "../../utils/login";
 
 const Login = () => {
-
+    const setAuthState = useSetRecoilState(authState);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const retorno = login(email, password);
-        console.log(retorno);
+        login(email, password, (userDetails) => {
+            setAuthState({
+                isAuthenticated: true,
+                ...userDetails
+            })
+        });
         setEmail('');
         setPassword('');
     }

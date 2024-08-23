@@ -1,12 +1,13 @@
 import { atom } from "recoil";
+import IAuthState from "../interfaces/IAuthState";
 
-export const authState = atom({
+export const authState = atom<IAuthState>({
     key: 'authState',
     default: {
         isAuthenticated: false,
-        userId: null,
-        userName: null,
-        userEmail: null,
-        userBirthDate: null
+        id: '',
+        name: '',
+        email: '',
+        birthDate: ''
     }
 })
