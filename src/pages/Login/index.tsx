@@ -3,11 +3,13 @@ import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { authState } from "../../state/atom";
 import { login } from "../../utils/login";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const setAuthState = useSetRecoilState(authState);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -19,6 +21,7 @@ const Login = () => {
         });
         setEmail('');
         setPassword('');
+        navigate("/profile")
     }
 
     return (

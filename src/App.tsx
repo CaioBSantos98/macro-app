@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Meals from './pages/Meals';
 import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path='login' element={<Login />} />
               <Route path='meals' element={<Meals />} />
+              <Route path='profile' element={<Profile />} />
               <Route path='*' element={<NotFound />} />
             </Route>
           </Routes>
