@@ -11,9 +11,9 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        login(email, password, (userDetails) => {
+        await login(email, password, (userDetails) => {
             setAuthState({
                 isAuthenticated: true,
                 ...userDetails

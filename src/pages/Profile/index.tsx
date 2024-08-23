@@ -12,7 +12,7 @@ const Profile = () => {
         if (!authStateValue.isAuthenticated) {
             navigate("/login");
         }
-    }, [])
+    }, [authStateValue, navigate])
 
     return (
         <Box component="section" sx={{ p: 2, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
