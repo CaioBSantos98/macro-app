@@ -1,6 +1,45 @@
+import { Box } from "@mui/material";
+import dayjs from "dayjs";
+import DaySummary from "../../components/DaySummary";
+import MealDetails from "../../components/MealDetails";
+import { getDayMeals } from "../../utils/meals";
+import IMealSummary from "../../interfaces/IMealSummary";
+import { useEffect, useState } from "react";
+
 const Meals = () => {
+    const today = dayjs().subtract(3, "hour").format("YYYY-MM-DD");
+    const teste = "2024-08-21";
+    const [meals, setMeals] = useState<IMealSummary[]>([]);
+
+    useEffect(() => {
+        const fetchMeals = async () => {
+            try {
+                const response = await getDayMeals(teste);
+                setMeals(response);
+            } catch (error) {
+                console.error('Failed to fetch meals', error);
+            }
+        }
+
+        fetchMeals();
+    }, [])
+
     return (
-        <h1>Meals</h1>
+        <Box component="section">
+            <span>{today}</span>
+            <Box maxWidth="768px"
+                padding={2}
+                marginLeft={2}
+                borderRadius={4}
+                sx={{
+                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
+            }}>
+                <DaySummary meals={meals} />
+                <Box component="ul" sx={{listStyle: "none"}}>
+                    {meals.map(meal => <MealDetails key={meal.id} meal={meal} />)}  
+                </Box>
+            </Box>
+        </Box>
     )
 }
 

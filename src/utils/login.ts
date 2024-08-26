@@ -10,6 +10,7 @@ export const login = async (email: string, password: string, onSucess: (userDeta
         const data: IUserDetails = response.data;
         onSucess(data);
     } catch (error) {
+        alert("Usuário inexistente ou senha inválida. Confirme as suas credenciais!");
         console.error('Error during login', error);
     }
 }
