@@ -1,10 +1,11 @@
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 import DaySummary from "../../components/DaySummary";
 import MealDetails from "../../components/MealDetails";
-import { getDayMeals } from "../../utils/meals";
+import SearchFoodModal from "../../components/SearchFoodModal";
 import IMealSummary from "../../interfaces/IMealSummary";
-import { useEffect, useState } from "react";
+import { getDayMeals } from "../../utils/meals";
 
 const Meals = () => {
     const today = dayjs().subtract(3, "hour").format("YYYY-MM-DD");
@@ -26,19 +27,20 @@ const Meals = () => {
 
     return (
         <Box component="section">
-            <span>{today}</span>
             <Box maxWidth="768px"
                 padding={2}
                 marginLeft={2}
                 borderRadius={4}
                 sx={{
-                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
-            }}>
+                    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
+                }}>
+                <span>{today}</span>
                 <DaySummary meals={meals} />
                 <Box component="ul" sx={{listStyle: "none"}}>
                     {meals.map(meal => <MealDetails key={meal.id} meal={meal} />)}  
                 </Box>
             </Box>
+            <SearchFoodModal />
         </Box>
     )
 }
