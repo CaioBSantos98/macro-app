@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import SearchFoodModal from '../SearchFoodModal';
 
 const NewMealModal = () => {
 
@@ -69,6 +70,7 @@ const NewMealModal = () => {
                         onChange={(event) => setMealName(event.target.value)}
                         sx={{ width: "100%", bgcolor: "white" }}
                     />
+                    <SearchFoodModal />
                     <Button variant="contained" type="submit" sx={{
                         width: "100%",
                         height: "56px",

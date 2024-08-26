@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import DaySummary from "../../components/DaySummary";
 import MealDetails from "../../components/MealDetails";
-import SearchFoodModal from "../../components/SearchFoodModal";
+import NewMealModal from "../../components/NewMealModal";
 import IMealSummary from "../../interfaces/IMealSummary";
 import { getDayMeals } from "../../utils/meals";
 
@@ -40,7 +40,7 @@ const Meals = () => {
                     {meals.map(meal => <MealDetails key={meal.id} meal={meal} />)}  
                 </Box>
             </Box>
-            <SearchFoodModal />
+            <NewMealModal />
         </Box>
     )
 }
