@@ -23,3 +23,16 @@ export const getUser = async (onSucess: (userDetails: IUserDetails) => void) => 
         console.error('Error during get user', error);
     }
 }
+
+export const logout = async () => {
+    try {
+        const response = await axios.post(`${url}/custom-logout`);
+        if (response.status === 200) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.error('Error during logout', error);
+    }
+}
