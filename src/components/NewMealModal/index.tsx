@@ -1,9 +1,11 @@
+import CloseIcon from '@mui/icons-material/Close';
 import { Button, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
+import IFoodQuantity from '../../interfaces/IFoodQuantity';
 import SearchFoodModal from '../SearchFoodModal';
+import SelectedFoodsList from '../SelectedFoodsList';
 
 const NewMealModal = () => {
 
@@ -28,11 +30,17 @@ const NewMealModal = () => {
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => { setOpen(false); setSelectedFoods([]) };
     const [mealName, setMealName] = useState('');
+    const [selectedFoods, setSelectedFoods] = useState<IFoodQuantity[]>([]);
 
     const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log(selectedFoods);
+        if (selectedFoods.length === 0) {
+            alert("Nenhum alimento selecionado para essa refeição! Adicione um alimento e tente novamente.")
+            return
+        }        
         setMealName('');
     }
 
@@ -44,38 +52,45 @@ const NewMealModal = () => {
             <Modal
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                aria-labelledby="modal-new-meal"
+                aria-describedby="modal-to-create-a-new-meal-today"
             >
-                <Box component="form" sx={style}
-                    onSubmit={(event) => submitHandler(event)}>
-                    <CloseIcon
-                        onClick={handleClose}
-                        sx={{
-                            position: 'absolute',
-                            cursor: "pointer",
-                            right: 20,
-                            fontSize: "30px",
-                            transition: "0.2s",
-                            ":hover": {
-                                color: "blue"
-                            }
-                        }} />
-                    <Typography variant="h4" component="h2">Adicione uma refeição</Typography>
-                    <TextField
-                        required
-                        label="Nome da refeição"
-                        type="text"
-                        value={mealName}
-                        onChange={(event) => setMealName(event.target.value)}
-                        sx={{ width: "100%", bgcolor: "white" }}
-                    />
-                    <SearchFoodModal />
-                    <Button variant="contained" type="submit" sx={{
+                <Box sx={style}>
+                    <Box component="form" sx={{
                         width: "100%",
-                        height: "56px",
-                        fontSize: "16px"
-                    }}>Adicionar</Button>
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "20px",
+                        padding: "20px",
+                    }}
+                        onSubmit={(event) => submitHandler(event)}>
+                        <CloseIcon
+                            onClick={handleClose}
+                            sx={{
+                                position: 'absolute',
+                                cursor: "pointer",
+                                right: 20,
+                                fontSize: "30px",
+                                transition: "0.2s",
+                                ":hover": {
+                                    color: "blue"
+                                }
+                            }} />
+                        <Typography variant="h4" component="h2">Adicione uma refeição</Typography>
+                        <TextField
+                            required
+                            label="Nome da refeição"
+                            type="text"
+                            value={mealName}
+                            onChange={(event) => setMealName(event.target.value)}
+                            sx={{ width: "100%", bgcolor: "white" }}
+                        />
+                        <Typography>Alimentos selecionados: {selectedFoods.length}</Typography>
+                        {selectedFoods.length > 0 && <SelectedFoodsList selectedFoods={selectedFoods} />}
+                        <Button variant="contained" type="submit" color="success">Adicionar</Button>
+                    </Box>
+                    <SearchFoodModal setSelectedFoods={setSelectedFoods} />
                 </Box>
             </Modal>
         </Box>

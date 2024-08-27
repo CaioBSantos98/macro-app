@@ -4,10 +4,15 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import IFoodItem from '../../interfaces/IFoodItem';
+import IFoodQuantity from '../../interfaces/IFoodQuantity';
 import { searchFood } from '../../utils/foods';
 import FoodList from '../FoodList';
 
-const SearchFoodModal = () => {
+interface SearchFoodModalProps {
+    setSelectedFoods: React.Dispatch<React.SetStateAction<IFoodQuantity[]>>
+}
+
+const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
 
     const style = {
         position: 'absolute',
@@ -20,6 +25,7 @@ const SearchFoodModal = () => {
         p: 4,
         maxWidth: "600px",
         width: "100%",
+        height: 500,
         borderRadius: 4,
         display: "flex",
         flexDirection: "column",
@@ -30,7 +36,7 @@ const SearchFoodModal = () => {
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => {setOpen(false); setFoodList([]); setFoodName('')};
+    const handleClose = () => { setOpen(false); setFoodList([]); setFoodName('') };
     const [foodName, setFoodName] = useState('');
     const [foodList, setFoodList] = useState<IFoodItem[]>([]);
 
@@ -39,13 +45,15 @@ const SearchFoodModal = () => {
         const data = await searchFood(foodName);
         if (data.content.length > 0) {
             setFoodList(data.content);
+        } else {
+            setFoodList([]);
         }
     }
 
     return (
         <Box>
-            <Button variant='contained' color='success' size='large' onClick={handleOpen}>
-                Selecionar alimento
+            <Button variant='contained' onClick={handleOpen}>
+                Selecionar alimentos
             </Button>
             <Modal
                 open={open}
@@ -76,14 +84,10 @@ const SearchFoodModal = () => {
                         onChange={(event) => setFoodName(event.target.value)}
                         sx={{ width: "100%", bgcolor: "white" }}
                     />
-                    {foodList.length > 0 && 
-                        <FoodList foodList={foodList} />
+                    <Button variant="contained" type="submit">Pesquisar</Button>
+                    {foodList.length > 0 &&
+                        <FoodList setSelectedFoods={setSelectedFoods} foodList={foodList} />
                     }
-                    <Button variant="contained" type="submit" sx={{
-                        width: "100%",
-                        height: "56px",
-                        fontSize: "16px"
-                    }}>Pesquisar</Button>
                 </Box>
             </Modal>
         </Box>

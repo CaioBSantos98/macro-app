@@ -11,8 +11,3 @@ export const authState = atom<IAuthState>({
         birthDate: ''
     }
 })
-
-export const selectedFoods = atom<Set<string>>({
-    key: 'selectedFoods',
-    default: new Set<string>()
-})
