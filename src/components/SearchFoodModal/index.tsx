@@ -7,6 +7,7 @@ import IFoodItem from '../../interfaces/IFoodItem';
 import IFoodQuantity from '../../interfaces/IFoodQuantity';
 import { searchFood } from '../../utils/foods';
 import FoodList from '../FoodList';
+import { useNavigate } from 'react-router-dom';
 
 interface SearchFoodModalProps {
     setSelectedFoods: React.Dispatch<React.SetStateAction<IFoodQuantity[]>>
@@ -39,14 +40,18 @@ const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
     const handleClose = () => { setOpen(false); setFoodList([]); setFoodName('') };
     const [foodName, setFoodName] = useState('');
     const [foodList, setFoodList] = useState<IFoodItem[]>([]);
+    const [foodFound, setFoodFound] = useState(true);
+    const navigate = useNavigate();
 
     const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = await searchFood(foodName);
         if (data.content.length > 0) {
             setFoodList(data.content);
+            setFoodFound(true);
         } else {
             setFoodList([]);
+            setFoodFound(false);
         }
     }
 
@@ -82,11 +87,25 @@ const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
                         type="text"
                         value={foodName}
                         onChange={(event) => setFoodName(event.target.value)}
+                        onFocus={() => setFoodFound(true)}
                         sx={{ width: "100%", bgcolor: "white" }}
                     />
                     <Button variant="contained" type="submit">Pesquisar</Button>
                     {foodList.length > 0 &&
                         <FoodList setSelectedFoods={setSelectedFoods} foodList={foodList} />
+                    }
+                    {!foodFound &&
+                        <Box textAlign="center">
+                            <Typography>Alimento "{foodName}" não encontrado.</Typography>
+                            <Typography>Deseja cadastrar "{foodName}"?</Typography>
+                            <Button
+                                variant='contained'
+                                color='success'
+                                onClick={() => navigate("/new-food", { state: { foodName: foodName } })}
+                            >
+                                Cadastrar
+                            </Button>
+                        </Box>
                     }
                 </Box>
             </Modal>

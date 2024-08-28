@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Meals from './pages/Meals';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
+import NewFood from './pages/NewFood';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route path='login' element={<Login />} />
               <Route path='meals' element={<Meals />} />
               <Route path='profile' element={<Profile />} />
+              <Route path='new-food' element={<NewFood />} />
               <Route path='*' element={<NotFound />} />
             </Route>
           </Routes>
