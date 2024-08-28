@@ -33,3 +33,17 @@ export const createMeal = async (mealName: string, foods: IFoodQuantity[]): Prom
         return null;
     }
 }
+
+export const getSummaryMeal = (meal: IMealDetails): IMealSummary => {
+    const summaryMeal: IMealSummary = {
+        id: meal.id,
+        name: meal.name,
+        date: meal.date,
+        totalCalories: meal.foodList.reduce((acc, f) => acc + (f.foodDetails.calories * f.quantity), 0),
+        totalCarbohydrates: meal.foodList.reduce((acc, f) => acc + (f.foodDetails.carbohydrate * f.quantity), 0),
+        totalProtein: meal.foodList.reduce((acc, f) => acc + (f.foodDetails.protein * f.quantity), 0),
+        totalFat: meal.foodList.reduce((acc, f) => acc + (f.foodDetails.fat * f.quantity), 0)
+    }
+
+    return summaryMeal;
+}

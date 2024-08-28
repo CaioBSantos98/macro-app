@@ -1,10 +1,10 @@
-import IFoodQuantity from "./IFoodQuantity";
+import IFoodResponseDto from "./IFoodResponseDto";
 
 interface IMealDetails {
     name: string;
     id: string;
     date: string;
-    foodList: IFoodQuantity[]
+    foodList: IFoodResponseDto[]
 }
 
 export default IMealDetails;

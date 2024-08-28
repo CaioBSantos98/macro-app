@@ -4,11 +4,16 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import IFoodQuantity from '../../interfaces/IFoodQuantity';
+import { createMeal, getSummaryMeal } from '../../utils/meals';
 import SearchFoodModal from '../SearchFoodModal';
 import SelectedFoodsList from '../SelectedFoodsList';
-import { createMeal } from '../../utils/meals';
+import IMealSummary from '../../interfaces/IMealSummary';
 
-const NewMealModal = () => {
+interface NewMealModalProps {
+    setMeal: React.Dispatch<React.SetStateAction<IMealSummary[]>>;
+}
+
+const NewMealModal = ({ setMeal }: NewMealModalProps) => {
 
     const style = {
         position: 'absolute',
@@ -37,12 +42,18 @@ const NewMealModal = () => {
 
     const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(selectedFoods);
         if (selectedFoods.length === 0) {
             alert("Nenhum alimento selecionado para essa refeição! Adicione um alimento e tente novamente.")
             return
         }
         const createdMeal = await createMeal(mealName, selectedFoods);
+        if (createdMeal) {
+            const summaryMeal = getSummaryMeal(createdMeal);
+            setMeal(prevMeals => [
+                ...prevMeals,
+                summaryMeal
+            ])
+        }
         setMealName('');
         handleClose();
     }

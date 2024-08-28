@@ -22,7 +22,7 @@ const Meals = () => {
         }
 
         fetchMeals();
-    }, [])
+    }, [today])
 
     return (
         <Box component="section">
@@ -35,11 +35,11 @@ const Meals = () => {
                 }}>
                 <span>{today}</span>
                 <DaySummary meals={meals} />
-                <Box component="ul" sx={{listStyle: "none"}}>
-                    {meals.map(meal => <MealDetails key={meal.id} meal={meal} />)}  
+                <Box component="ul" sx={{ listStyle: "none" }}>
+                    {meals.map(meal => <MealDetails key={meal.id} meal={meal} />)}
                 </Box>
             </Box>
-            <NewMealModal />
+            <NewMealModal setMeal={setMeals} />
         </Box>
     )
 }
