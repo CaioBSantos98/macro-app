@@ -6,6 +6,7 @@ import { useState } from 'react';
 import IFoodQuantity from '../../interfaces/IFoodQuantity';
 import SearchFoodModal from '../SearchFoodModal';
 import SelectedFoodsList from '../SelectedFoodsList';
+import { createMeal } from '../../utils/meals';
 
 const NewMealModal = () => {
 
@@ -40,8 +41,10 @@ const NewMealModal = () => {
         if (selectedFoods.length === 0) {
             alert("Nenhum alimento selecionado para essa refeição! Adicione um alimento e tente novamente.")
             return
-        }        
+        }
+        const createdMeal = await createMeal(mealName, selectedFoods);
         setMealName('');
+        handleClose();
     }
 
     return (

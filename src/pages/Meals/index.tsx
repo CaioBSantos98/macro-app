@@ -9,13 +9,12 @@ import { getDayMeals } from "../../utils/meals";
 
 const Meals = () => {
     const today = dayjs().subtract(3, "hour").format("YYYY-MM-DD");
-    const teste = "2024-08-21";
     const [meals, setMeals] = useState<IMealSummary[]>([]);
 
     useEffect(() => {
         const fetchMeals = async () => {
             try {
-                const response = await getDayMeals(teste);
+                const response = await getDayMeals(today);
                 setMeals(response);
             } catch (error) {
                 console.error('Failed to fetch meals', error);
