@@ -33,13 +33,23 @@ const NewFoodForm = ({ state, setSucess, setFood }: NewFoodFormProps) => {
                 const createdFood = await registerFood(foodName, brand, serving, carbohydrate, protein, fat);
                 setFood(createdFood);
                 setSucess(true);
+                clearForm();
             } catch (error) {
-                console.error('Erro:', error)
+                console.error('Erro:', error);
                 setFood(null);
                 setSucess(false);
             }
         }
         register();
+    }
+
+    const clearForm = () => {
+        setFoodName('');
+        setBrand('');
+        setServing(100);
+        setCarbohydrate(0);
+        setProtein(0);
+        setFat(0);
     }
 
     return (

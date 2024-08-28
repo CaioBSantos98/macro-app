@@ -1,8 +1,9 @@
+import { CheckCircleOutline } from '@mui/icons-material';
+import { Alert, Button, Card, CardActionArea, CardContent, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
 import IFoodItem from '../../interfaces/IFoodItem';
-import { Typography } from '@mui/material';
 
 interface CreatedFoodModal {
     success: boolean;
@@ -17,22 +18,11 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-    maxWidth: "600px",
-    width: "100%",
-    borderRadius: 4,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "20px",
-    padding: "20px",
 };
 
 const CreatedFoodModal = ({ success, food, setSucess, setFood }: CreatedFoodModal) => {
     const [open, setOpen] = useState(success);
-    const handleClose = () => {setSucess(false); setFood(null)};
+    const handleClose = () => { setSucess(false); setFood(null) };
 
     useEffect(() => {
         setOpen(success)
@@ -47,16 +37,42 @@ const CreatedFoodModal = ({ success, food, setSucess, setFood }: CreatedFoodModa
         >
             <Box sx={style}>
                 {food &&
-                    <>
-                        <Typography>{food.id}</Typography>
-                        <Typography>{food.name}</Typography>
-                        <Typography>{food.brand}</Typography>
-                        <Typography>{food.serving}</Typography>
-                        <Typography>{food.calories}</Typography>
-                        <Typography>{food.carbohydrate}</Typography>
-                        <Typography>{food.protein}</Typography>
-                        <Typography>{food.fat}</Typography>
-                    </>
+                    <Card sx={{ maxWidth: 345 }}>
+                        <CardActionArea>
+                            <CardContent>
+                                <Alert icon={<CheckCircleOutline />} severity="success">
+                                    Alimento cadastrado com sucesso!
+                                </Alert>
+                                <Typography gutterBottom variant="h5" component="h4">
+                                    {food.name}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                    ID: {food.id}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                    Marca: {food.brand === null ? 'null' : food.brand}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                    Porção: {food.serving}g
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                    Calorias: {food.calories.toFixed(2)} kcal
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                    Carboidratos: {food.carbohydrate.toFixed(2)}g
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                    Proteína: {food.protein.toFixed(2)}g
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                    Gordura: {food.fat.toFixed(2)}g
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                        <Button fullWidth size='large' variant='text' onClick={handleClose}>
+                            Fechar
+                        </Button>
+                    </Card>
                 }
             </Box>
         </Modal>
