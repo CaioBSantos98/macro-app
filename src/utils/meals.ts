@@ -47,3 +47,14 @@ export const getSummaryMeal = (meal: IMealDetails): IMealSummary => {
 
     return summaryMeal;
 }
+
+export const fetchMealDetails = async (id: string): Promise<IMealDetails> => {
+    try {
+        const response = await axios.get(`${url}/api/meal/detailed/${id}`);
+        const data: IMealDetails = response.data;
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+        throw new Error('Failed to get meal details');
+    }
+}

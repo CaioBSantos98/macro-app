@@ -13,7 +13,7 @@ const NewFood = () => {
     const [createdFood, setCreatedFood] = useState<IFoodItem | null>(null);
 
     return (
-        <Box component="section">
+        <Box component="section" display="flex" flexDirection="column" alignItems="center" paddingTop={5}>
             <NewFoodForm state={state} setSucess={setSucessCreated} setFood={setCreatedFood} />
             <CreatedFoodModal success={successCreated} food={createdFood} setSucess={setSucessCreated} setFood={setCreatedFood} />
         </Box>
