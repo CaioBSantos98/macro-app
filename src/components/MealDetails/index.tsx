@@ -68,7 +68,7 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
                     </Box>
                 </AccordionSummary>
                 <AccordionDetails>
-                    {mealDetails && <MealDetailsFoodList foodList={mealDetails.foodList} />}
+                    {mealDetails && <MealDetailsFoodList foodList={mealDetails.foodList} mealId={meal.id} setMeals={setMeals} setMealDetails={setMealDetails} />}
                 </AccordionDetails>
             </Accordion>
             <AddFoodModal open={open} setOpen={setOpen} meal={meal} setMealDetails={setMealDetails} setMeals={setMeals} />

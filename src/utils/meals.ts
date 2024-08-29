@@ -78,3 +78,14 @@ export const addFoodsOnMeal = async (foods: IFoodQuantity[], mealId: string): Pr
         throw new Error(`Failed to add foods on ${mealId}`);
     }
 }
+
+export const removeFoodOnMeal = async (mealId: string, foodId: string): Promise<IMealDetails> => {
+    try {
+        const response = await axios.delete(`${url}/api/meal/${mealId}/food/${foodId}`);
+        const data: IMealDetails = response.data;
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to remove food: ${foodId} on meal: ${mealId}`);
+    }
+}
