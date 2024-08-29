@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { authState } from "../../state/atom";
 import { login } from "../../utils/login";
-import NewUserModal from "../NewUserModal";
+import NewUserModal from "../modal/NewUserModal";
 
 const LoginForm = () => {
     const setAuthState = useSetRecoilState(authState)

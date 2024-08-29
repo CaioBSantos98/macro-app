@@ -22,7 +22,7 @@ export const createMeal = async (mealName: string, foods: IFoodQuantity[]): Prom
         const requestBody = {
             name: mealName,
             foodList: foods.map(f => {
-                return {id: f.id, quantity: f.quantity}
+                return { id: f.id, quantity: f.quantity }
             })
         }
         const response = await axios.post(`${url}/api/meal`, requestBody);
@@ -56,5 +56,25 @@ export const fetchMealDetails = async (id: string): Promise<IMealDetails> => {
     } catch (error) {
         console.error('Error:', error);
         throw new Error('Failed to get meal details');
+    }
+}
+
+export const addFoodsOnMeal = async (foods: IFoodQuantity[], mealId: string): Promise<IMealDetails> => {
+    try {
+        const requestBody = {
+            mealId: mealId,
+            foodList: foods.map(f => {
+                return {
+                    id: f.id,
+                    quantity: f.quantity
+                }
+            })
+        }
+        const response = await axios.post(`${url}/api/meal/foods`, requestBody);
+        const data: IMealDetails = response.data;
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to add foods on ${mealId}`);
     }
 }

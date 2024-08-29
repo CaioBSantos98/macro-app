@@ -7,14 +7,18 @@ import IFoodQuantity from '../../../interfaces/IFoodQuantity';
 import IMealSummary from '../../../interfaces/IMealSummary';
 import SelectedFoodsList from '../../SelectedFoodsList';
 import SearchFoodModal from '../SearchFoodModal';
+import { addFoodsOnMeal, getSummaryMeal } from '../../../utils/meals';
+import IMealDetails from '../../../interfaces/IMealDetails';
 
 interface AddFoodModalProps {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     meal: IMealSummary;
+    setMealDetails: React.Dispatch<React.SetStateAction<IMealDetails | null>>;
+    setMeals: React.Dispatch<React.SetStateAction<IMealSummary[]>>;
 }
 
-const AddFoodModal = ({ open, setOpen, meal }: AddFoodModalProps) => {
+const AddFoodModal = ({ open, setOpen, meal, setMealDetails, setMeals }: AddFoodModalProps) => {
 
     const style = {
         position: 'absolute',
@@ -41,9 +45,26 @@ const AddFoodModal = ({ open, setOpen, meal }: AddFoodModalProps) => {
     const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (selectedFoods.length === 0) {
-            alert("Nenhum alimento selecionado para essa refeição! Adicione um alimento e tente novamente.")
+            alert("Nenhum alimento selecionado! Adicione um alimento e tente novamente.")
             return
         }
+
+        const addFoods = async () => {
+            try {
+                const mealDetails = await addFoodsOnMeal(selectedFoods, meal.id);
+                const mealSummary = getSummaryMeal(mealDetails);
+                setMealDetails(mealDetails);
+                setMeals(prevMeals => prevMeals.map(meal => {
+                    if(meal.id === mealSummary.id) {
+                        return {...mealSummary}
+                    }
+                    return meal
+                }))
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        addFoods();
         handleClose();
     }
 

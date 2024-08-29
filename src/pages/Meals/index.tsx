@@ -55,7 +55,7 @@ const Meals = () => {
                 </LocalizationProvider>
                 <DaySummary meals={meals} />
                 <List component="ul" sx={{ listStyle: "none" }}>
-                    {meals.map(meal => <MealDetails key={meal.id} meal={meal} />)}
+                    {meals.map(meal => <MealDetails key={meal.id} meal={meal} setMeals={setMeals} />)}
                 </List>
             </Box>
         </Box>
