@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import NewUserForm from '../NewUserForm';
+import NewUserForm from '../../NewUserForm';
 
 const NewUserModal = () => {
     const [open, setOpen] = useState(false);

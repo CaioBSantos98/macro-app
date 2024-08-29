@@ -3,7 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import DaySummary from "../../components/DaySummary";
 import MealDetails from "../../components/MealDetails";
-import NewMealModal from "../../components/NewMealModal";
+import NewMealModal from "../../components/modal/NewMealModal";
 import IMealSummary from "../../interfaces/IMealSummary";
 import { getDayMeals } from "../../utils/meals";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";

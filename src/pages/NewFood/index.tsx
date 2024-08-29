@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import NewFoodForm from "../../components/NewFoodForm";
-import CreatedFoodModal from "../../components/CreatedFoodModal";
+import CreatedFoodModal from "../../components/modal/CreatedFoodModal";
 import { useState } from "react";
 import IFoodItem from "../../interfaces/IFoodItem";
 

@@ -3,7 +3,7 @@ import { Alert, Button, Card, CardActionArea, CardContent, Typography } from '@m
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
-import IFoodItem from '../../interfaces/IFoodItem';
+import IFoodItem from '../../../interfaces/IFoodItem';
 
 interface CreatedFoodModal {
     success: boolean;

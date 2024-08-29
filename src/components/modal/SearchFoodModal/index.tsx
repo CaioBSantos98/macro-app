@@ -3,10 +3,10 @@ import { Button, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
-import IFoodItem from '../../interfaces/IFoodItem';
-import IFoodQuantity from '../../interfaces/IFoodQuantity';
-import { searchFood } from '../../utils/foods';
-import FoodList from '../FoodList';
+import IFoodItem from '../../../interfaces/IFoodItem';
+import IFoodQuantity from '../../../interfaces/IFoodQuantity';
+import { searchFood } from '../../../utils/foods';
+import FoodList from '../../FoodList';
 import { useNavigate } from 'react-router-dom';
 
 interface SearchFoodModalProps {

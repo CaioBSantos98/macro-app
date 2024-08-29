@@ -3,11 +3,11 @@ import { Button, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
-import IFoodQuantity from '../../interfaces/IFoodQuantity';
-import { createMeal, getSummaryMeal } from '../../utils/meals';
+import IFoodQuantity from '../../../interfaces/IFoodQuantity';
+import { createMeal, getSummaryMeal } from '../../../utils/meals';
 import SearchFoodModal from '../SearchFoodModal';
-import SelectedFoodsList from '../SelectedFoodsList';
-import IMealSummary from '../../interfaces/IMealSummary';
+import SelectedFoodsList from '../../SelectedFoodsList';
+import IMealSummary from '../../../interfaces/IMealSummary';
 
 interface NewMealModalProps {
     setMeal: React.Dispatch<React.SetStateAction<IMealSummary[]>>;
