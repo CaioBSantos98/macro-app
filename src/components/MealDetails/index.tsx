@@ -1,12 +1,13 @@
 import AddIcon from '@mui/icons-material/Add';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, ListItem, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, IconButton, ListItem, Typography } from "@mui/material";
 import { useEffect, useState } from 'react';
 import IMealDetails from '../../interfaces/IMealDetails';
 import IMealSummary from "../../interfaces/IMealSummary";
 import { fetchMealDetails } from '../../utils/meals';
-import MealDetailsFoodList from './MealDetailsFoodList';
 import AddFoodModal from '../modal/AddFoodModal';
+import MealDetailsFoodList from './MealDetailsFoodList';
+import MealMenu from './MealMenu';
 
 interface MealDetailsProps {
     meal: IMealSummary;
@@ -38,15 +39,14 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
         <ListItem disablePadding>
             <Accordion sx={{ width: "100%" }} expanded={expanded} onChange={() => setExpanded(!expanded)}>
                 <AccordionSummary
-                    expandIcon={<ArrowDownwardIcon color='primary' fontSize='medium' />}
+                    expandIcon={<IconButton><ArrowDownwardIcon color='primary' fontSize='medium' /></IconButton>}
                 >
                     <Box
                         sx={{
                             display: "flex",
                             width: "100%",
                             justifyContent: "space-between",
-                            alignItems: "center",
-                            marginRight: 2
+                            alignItems: "center"
                         }}>
                         <Box>
                             <Typography component="h4" variant="h5">
@@ -62,9 +62,12 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
                                 <Typography>Gord: {meal.totalFat.toFixed(2)}g </Typography>
                             </Box>
                         </Box>
-                        <Button onClick={event => openAddFoodForm(event)}>
-                            <AddIcon fontSize='large' color='primary' />
-                        </Button>
+                        <Box display="flex" alignItems="center">
+                            <IconButton onClick={event => openAddFoodForm(event)} size='large'>
+                                <AddIcon color='primary' />
+                            </IconButton>
+                            <MealMenu meal={meal} setMeals={setMeals} setMealDetails={setMealDetails} foodList={mealDetails?.foodList} />
+                        </Box>
                     </Box>
                 </AccordionSummary>
                 <AccordionDetails>

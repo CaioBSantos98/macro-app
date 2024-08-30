@@ -89,3 +89,24 @@ export const removeFoodOnMeal = async (mealId: string, foodId: string): Promise<
         throw new Error(`Failed to remove food: ${foodId} on meal: ${mealId}`);
     }
 }
+
+export const removeAllFoodsOnMeal = async (mealId: string): Promise<IMealDetails> => {
+    try {
+        const response = await axios.delete(`${url}/api/meal/${mealId}/foods`);
+        const data: IMealDetails = response.data;
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to remove all foods on meal: ${mealId}`);
+    }
+}
+
+export const deleteMeal = async (mealId: string): Promise<number> => {
+    try {
+        const response = await axios.delete(`${url}/api/meal/delete/${mealId}`);
+        return response.status;
+    } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to delete meal: ${mealId}`);
+    }
+}
