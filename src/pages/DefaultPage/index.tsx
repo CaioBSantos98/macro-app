@@ -1,11 +1,10 @@
 import { AppBar, Box, Container, Toolbar } from "@mui/material";
-import { Outlet } from "react-router-dom";
-import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
 import { useEffect } from "react";
-import { getUser } from "../../utils/login";
+import { Outlet } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import NavBar from "../../components/NavBar";
 import { authState } from "../../state/atom";
+import { getUser } from "../../utils/login";
 
 const DefaultPage = () => {
 
@@ -23,7 +22,7 @@ const DefaultPage = () => {
 
     return (
         <Box component="main" sx={{minHeight: "100vh", display: "flex", flexDirection: "column"}}>
-            <AppBar position="static">
+            <AppBar position="static" sx={{bgcolor: "var(--orange)", color: "black"}}>
                 <Container maxWidth='xl'>
                     <Toolbar disableGutters sx={{display: "flex", justifyContent: "center"}}>
                         <NavBar />
@@ -31,7 +30,6 @@ const DefaultPage = () => {
                 </Container>
             </AppBar>
             <Outlet />
-            <Footer />
         </Box>
     )
 }

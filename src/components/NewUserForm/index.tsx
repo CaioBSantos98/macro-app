@@ -54,10 +54,11 @@ const NewUserForm = ({ handleClose }: NewUserFormProps) => {
         const retorno = await createNewUser(user)
         if (retorno == true) {
             alert('Usuário cadastrado com sucesso!');
+            handleClose();
+            clearForm();
         } else {
             alert('Usuario não cadastrado');
         }
-        clearForm();
     }
 
     const clearForm = () => {

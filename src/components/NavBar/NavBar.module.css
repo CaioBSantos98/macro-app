@@ -1,4 +1,8 @@
 .container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
     ul {
         list-style: none;
         display: flex;
@@ -9,15 +13,16 @@
         text-decoration: none;
         color: white;
         font-size: 20px;
-        font-weight: 700;
-        transition: 0.2s;
+        transition: 0.1s;
+        font-weight: bold;
 
         &:visited {
             color: white;
         }
 
         &:hover {
-            color: black;
+
+            color: var(--brown);
         }
     }
 }

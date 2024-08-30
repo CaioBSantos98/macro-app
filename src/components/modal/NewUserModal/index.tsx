@@ -1,6 +1,6 @@
+import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import NewUserForm from '../../NewUserForm';
 
@@ -11,19 +11,21 @@ const NewUserModal = () => {
 
     return (
         <Box>
-            <Typography
-                variant="overline"
+            <Button
+                variant="contained"
                 onClick={handleOpen}
                 sx={{
-                    cursor: "pointer",
-                    textDecoration: "underline",
-                    transition: "0.2s",
+                    color: "white",
+                    bgcolor: "var(--lightgreen)",
+                    fontWeight: 700,
+                    padding: "10px 30px",
+                    transition: 1,
                     "&:hover": {
-                        color: "blue"
+                        bgcolor: "var(--green)"
                     }
                 }}>
                 Cadastre-se aqui
-            </Typography>
+            </Button>
             <Modal
                 open={open}
                 onClose={handleClose}

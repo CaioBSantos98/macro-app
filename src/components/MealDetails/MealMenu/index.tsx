@@ -3,19 +3,17 @@ import { Box, IconButton } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
+import IMealDetails from '../../../interfaces/IMealDetails';
 import IMealSummary from '../../../interfaces/IMealSummary';
 import { deleteMeal, getSummaryMeal, removeAllFoodsOnMeal } from '../../../utils/meals';
-import IMealDetails from '../../../interfaces/IMealDetails';
-import IFoodResponseDto from '../../../interfaces/IFoodResponseDto';
 
 interface MealMenuProps {
     meal: IMealSummary;
     setMeals: React.Dispatch<React.SetStateAction<IMealSummary[]>>
     setMealDetails: React.Dispatch<React.SetStateAction<IMealDetails | null>>
-    foodList: IFoodResponseDto[] | undefined
 }
 
-const MealMenu = ({ meal, setMeals, setMealDetails, foodList }: MealMenuProps) => {
+const MealMenu = ({ meal, setMeals, setMealDetails }: MealMenuProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -44,8 +42,9 @@ const MealMenu = ({ meal, setMeals, setMealDetails, foodList }: MealMenuProps) =
             }
         }
         handleClose(event);
-        if (foodList && foodList.length > 0) {
-            remove();
+        if (meal.totalCalories > 0) {
+            const confirmed = confirm(`Tem certeza que deseja remover todos os alimentos do ${meal.name} ?`);
+            if (confirmed) remove();
         }
     };
     const deleteMealFunc = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
@@ -63,7 +62,7 @@ const MealMenu = ({ meal, setMeals, setMealDetails, foodList }: MealMenuProps) =
             }
         }
         handleClose(event);
-        const confirmed = confirm('Tem certeza que deseja deletar essa refeição?');
+        const confirmed = confirm(`Tem certeza que deseja deletar o ${meal.name}?`);
         if (confirmed) deleteMealAsyncFunc();
     };
 

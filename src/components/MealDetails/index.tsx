@@ -66,7 +66,7 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
                             <IconButton onClick={event => openAddFoodForm(event)} size='large'>
                                 <AddIcon color='primary' />
                             </IconButton>
-                            <MealMenu meal={meal} setMeals={setMeals} setMealDetails={setMealDetails} foodList={mealDetails?.foodList} />
+                            <MealMenu meal={meal} setMeals={setMeals} setMealDetails={setMealDetails} />
                         </Box>
                     </Box>
                 </AccordionSummary>
