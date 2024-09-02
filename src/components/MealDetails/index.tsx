@@ -36,8 +36,8 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
     }
 
     return (
-        <ListItem disablePadding>
-            <Accordion sx={{ width: "100%" }} expanded={expanded} onChange={() => setExpanded(!expanded)}>
+        <ListItem>
+            <Accordion sx={{ width: "100%", bgcolor: "var(--beige)" }} expanded={expanded} onChange={() => setExpanded(!expanded)}>
                 <AccordionSummary
                     expandIcon={<IconButton><ArrowDownwardIcon color='primary' fontSize='medium' /></IconButton>}
                 >
@@ -52,11 +52,11 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
                             <Typography component="h4" variant="h5">
                                 {meal.name}
                             </Typography>
+                            <Typography>Calorias: {meal.totalCalories.toFixed(2)}kcal </Typography>
                             <Box sx={{
                                 display: "flex",
                                 gap: "20px"
                             }}>
-                                <Typography>Calorias: {meal.totalCalories.toFixed(2)}kcal </Typography>
                                 <Typography>Carb: {meal.totalCarbohydrates.toFixed(2)}g </Typography>
                                 <Typography>Prot: {meal.totalProtein.toFixed(2)}g </Typography>
                                 <Typography>Gord: {meal.totalFat.toFixed(2)}g </Typography>

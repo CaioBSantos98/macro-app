@@ -60,8 +60,8 @@ const NewMealModal = ({ setMeal }: NewMealModalProps) => {
 
     return (
         <Box>
-            <Button variant='contained' color='success' size='large' onClick={handleOpen}>
-                Adicionar refeição
+            <Button variant='contained' onClick={handleOpen} sx={{bgcolor: "var(--brown)", ":hover": {bgcolor: "var(--dark-brown)"}}}>
+                Nova refeição
             </Button>
             <Modal
                 open={open}

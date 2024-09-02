@@ -11,18 +11,18 @@
 
     a {
         text-decoration: none;
-        color: white;
+        color: var(--dark-brown);
         font-size: 20px;
         transition: 0.1s;
         font-weight: bold;
 
         &:visited {
-            color: white;
+            color: var(--brown);
         }
 
         &:hover {
 
-            color: var(--brown);
+            color: white;
         }
     }
 }

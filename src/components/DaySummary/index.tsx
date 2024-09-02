@@ -15,24 +15,14 @@ const DaySummary = ({ meals }: DaySummaryProps) => {
     return (
         <Box
             display="flex"
-            flexDirection="column"
-            alignItems="center"
-            component="header"
-            borderBottom="1px dashed grey"
+            justifyContent="space-around"
+            bgcolor="var(--orange)"
+            p={1}
         >
-            <Typography component="h4" variant="h4">
-                Resumo do dia
-            </Typography>
-            <Typography>Calorias: {calories.toFixed(2)} kcal </Typography>
-            <Box sx={{
-                display: "flex",
-                justifyContent: "space-around",
-                width: "100%"
-            }}>
-                <Typography>Carboidratos: {carbohydrate.toFixed(2)}g </Typography>
-                <Typography>Proteina: {protein.toFixed(2)}g </Typography>
-                <Typography>Gordura: {fat.toFixed(2)}g </Typography>
-            </Box>
+            <Typography>Carb: {carbohydrate.toFixed(2)}g </Typography>
+            <Typography>Prot: {protein.toFixed(2)}g </Typography>
+            <Typography>Gord: {fat.toFixed(2)}g </Typography>
+            <Typography fontWeight={700} >Cals: {calories.toFixed(2)}kcal </Typography>
         </Box>
     )
 }

@@ -22,8 +22,8 @@ const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: Mea
                 const mealSummary = getSummaryMeal(mealDetails);
                 setMealDetails(mealDetails);
                 setMeals(prevMeals => prevMeals.map(meal => {
-                    if(meal.id === mealSummary.id) {
-                        return {...mealSummary}
+                    if (meal.id === mealSummary.id) {
+                        return { ...mealSummary }
                     }
                     return meal
                 }))
@@ -33,9 +33,9 @@ const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: Mea
     }
 
     return (
-        <List component="ul">
+        <List component="ul" sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             {foodList.map(f =>
-                <ListItem key={f.foodDetails.id} sx={{display: "block", position: "relative"}}>
+                <ListItem key={f.foodDetails.id} sx={{ display: "block", position: "relative" }}>
                     <Typography>
                         {f.foodDetails.name} ({(f.foodDetails.serving * f.quantity).toFixed(0)}g)
                     </Typography>
@@ -48,7 +48,7 @@ const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: Mea
                         <Typography>Prot: {(f.quantity * f.foodDetails.protein).toFixed(0)}g </Typography>
                         <Typography>Gord: {(f.quantity * f.foodDetails.fat).toFixed(0)}g </Typography>
                     </Box>
-                    <IconButton size='large' sx={{position: "absolute", right: 0, top: 0, height: "100%"}} onClick={() => removeFoodItem(f)}>
+                    <IconButton size='large' sx={{ position: "absolute", right: 0, top: 0, height: "100%" }} onClick={() => removeFoodItem(f)}>
                         <DeleteOutlineOutlinedIcon fontSize='large' color="primary" />
                     </IconButton>
                 </ListItem>
