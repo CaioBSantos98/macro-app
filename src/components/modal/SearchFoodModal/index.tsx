@@ -1,5 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, IconButton, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
@@ -21,9 +21,7 @@ const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
+        p: 2,
         maxWidth: "600px",
         width: "100%",
         height: 500,
@@ -32,7 +30,6 @@ const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
         flexDirection: "column",
         alignItems: "center",
         gap: "20px",
-        padding: "20px",
     };
 
     const [open, setOpen] = useState(false);
@@ -56,8 +53,8 @@ const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
     }
 
     return (
-        <Box>
-            <Button variant='contained' onClick={handleOpen}>
+        <Box width="90%">
+            <Button fullWidth variant='contained' onClick={handleOpen} sx={{ bgcolor: "var(--brown)", ":hover": { bgcolor: "var(--dark-brown)" } }}>
                 Selecionar alimentos
             </Button>
             <Modal
@@ -65,21 +62,25 @@ const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                sx={{ m: 2 }}
             >
                 <Box component="form" sx={style}
                     onSubmit={(event) => submitHandler(event)}>
-                    <CloseIcon
+                    <IconButton
                         onClick={handleClose}
                         sx={{
                             position: 'absolute',
-                            cursor: "pointer",
-                            right: 20,
-                            fontSize: "30px",
+                            top: 10,
+                            right: 10,
                             transition: "0.2s",
+                            color: "var(--brown)",
                             ":hover": {
-                                color: "blue"
+                                color: "var(--dark-brown)"
                             }
-                        }} />
+                        }}
+                    >
+                        <CloseIcon fontSize='large' />
+                    </IconButton>
                     <Typography variant="h4" component="h2">Selecione um alimento</Typography>
                     <TextField
                         required
@@ -90,7 +91,7 @@ const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
                         onFocus={() => setFoodFound(true)}
                         sx={{ width: "100%", bgcolor: "white" }}
                     />
-                    <Button variant="contained" type="submit">Pesquisar</Button>
+                    <Button fullWidth variant="contained" type="submit" sx={{ bgcolor: "var(--brown)", ":hover": { bgcolor: "var(--dark-brown)" } }}>Pesquisar</Button>
                     {foodList.length > 0 &&
                         <FoodList setSelectedFoods={setSelectedFoods} foodList={foodList} />
                     }

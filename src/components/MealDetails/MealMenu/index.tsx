@@ -77,7 +77,7 @@ const MealMenu = ({ meal, setMeals, setMealDetails }: MealMenuProps) => {
                 onClick={handleClick}
                 size='large'
             >
-                <MoreVertIcon color='primary' />
+                <MoreVertIcon sx={{ color: "var(--brown)" }} />
             </IconButton>
             <Menu
                 id="basic-menu"

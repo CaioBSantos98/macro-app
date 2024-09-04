@@ -29,8 +29,9 @@ const NewUserModal = () => {
             <Modal
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                aria-labelledby="modal-subscribe"
+                aria-describedby="modal-subscribe-form"
+                sx={{ m: 2 }}
             >
                 <Box>
                     <NewUserForm handleClose={handleClose}/>

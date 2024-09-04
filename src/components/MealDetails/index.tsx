@@ -37,9 +37,9 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
 
     return (
         <ListItem>
-            <Accordion sx={{ width: "100%", bgcolor: "var(--beige)" }} expanded={expanded} onChange={() => setExpanded(!expanded)}>
+            <Accordion sx={{ bgcolor: "var(--orange)", width: "100%", color: "var(--dark-brown)" }} expanded={expanded} onChange={() => setExpanded(!expanded)}>
                 <AccordionSummary
-                    expandIcon={<IconButton><ArrowDownwardIcon color='primary' fontSize='medium' /></IconButton>}
+                    expandIcon={<IconButton><ArrowDownwardIcon sx={{ color: "var(--brown)", ":hover": { bgcolor: "var(--dark-orange)" } }} fontSize='medium' /></IconButton>}
                 >
                     <Box
                         sx={{
@@ -49,7 +49,7 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
                             alignItems: "center"
                         }}>
                         <Box>
-                            <Typography component="h4" variant="h5">
+                            <Typography component="h4" variant="h5" fontWeight={700}>
                                 {meal.name}
                             </Typography>
                             <Typography>Calorias: {meal.totalCalories.toFixed(2)}kcal </Typography>
@@ -64,13 +64,13 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
                         </Box>
                         <Box display="flex" alignItems="center">
                             <IconButton onClick={event => openAddFoodForm(event)} size='large'>
-                                <AddIcon color='primary' />
+                                <AddIcon sx={{ color: "var(--brown)" }} />
                             </IconButton>
                             <MealMenu meal={meal} setMeals={setMeals} setMealDetails={setMealDetails} />
                         </Box>
                     </Box>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{ paddingTop: 0, paddingBottom: 0, bgcolor: "var(--beige)" }}>
                     {mealDetails && <MealDetailsFoodList foodList={mealDetails.foodList} mealId={meal.id} setMeals={setMeals} setMealDetails={setMealDetails} />}
                 </AccordionDetails>
             </Accordion>

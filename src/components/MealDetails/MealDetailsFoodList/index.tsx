@@ -1,5 +1,5 @@
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { Box, IconButton, List, ListItem, Typography } from "@mui/material";
+import { Box, Divider, IconButton, List, ListItem, Typography } from "@mui/material";
 import IFoodResponseDto from "../../../interfaces/IFoodResponseDto";
 import IMealDetails from "../../../interfaces/IMealDetails";
 import IMealSummary from "../../../interfaces/IMealSummary";
@@ -33,10 +33,10 @@ const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: Mea
     }
 
     return (
-        <List component="ul" sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <List component="ul" sx={{ display: 'flex', flexDirection: 'column', gap: 1, bgcolor: "var(--beige)" }}>
             {foodList.map(f =>
-                <ListItem key={f.foodDetails.id} sx={{ display: "block", position: "relative" }}>
-                    <Typography>
+                <ListItem key={f.foodDetails.id} sx={{ display: "block", position: "relative", p: 0 }}>
+                    <Typography fontWeight={700}>
                         {f.foodDetails.name} ({(f.foodDetails.serving * f.quantity).toFixed(0)}g)
                     </Typography>
                     <Box sx={{
@@ -49,8 +49,9 @@ const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: Mea
                         <Typography>Gord: {(f.quantity * f.foodDetails.fat).toFixed(0)}g </Typography>
                     </Box>
                     <IconButton size='large' sx={{ position: "absolute", right: 0, top: 0, height: "100%" }} onClick={() => removeFoodItem(f)}>
-                        <DeleteOutlineOutlinedIcon fontSize='large' color="primary" />
+                        <DeleteOutlineOutlinedIcon fontSize='large' sx={{ color: "var(--brown)" }} />
                     </IconButton>
+                    <Divider />
                 </ListItem>
             )}
         </List>

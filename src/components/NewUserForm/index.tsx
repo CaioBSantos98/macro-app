@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Dayjs } from "dayjs";
@@ -12,18 +12,16 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: 'white',
     boxShadow: 24,
     p: 4,
-    maxWidth: "600px",
+    maxWidth: 400,
     width: "100%",
-    borderRadius: 4,
+    borderRadius: 2,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    gap: "20px",
-    padding: "20px",
+    gap: "10px"
 };
 
 interface NewUserFormProps {
@@ -71,26 +69,17 @@ const NewUserForm = ({ handleClose }: NewUserFormProps) => {
     return (
         <Box component="form" sx={style}
             onSubmit={(event) => submitHandler(event)}>
-            <CloseIcon
-                onClick={handleClose}
-                sx={{
-                    position: 'absolute',
-                    cursor: "pointer",
-                    right: 20,
-                    fontSize: "30px",
-                    transition: "0.2s",
-                    ":hover": {
-                        color: "blue"
-                    }
-                }} />
-            <Typography variant="h4" component="h2">Cadastre-se</Typography>
+            <IconButton onClick={handleClose} sx={{ position: 'absolute', right: 20, top: 27 }}>
+                <CloseIcon fontSize="large" />
+            </IconButton>
+            <Typography variant="h4" component="h2" textAlign="initial" width="100%" paddingBottom={1} borderBottom={1} >Cadastre-se</Typography>
             <TextField
                 required
                 label="Nome completo"
                 type="text"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                sx={{ width: "100%", bgcolor: "white" }}
+                sx={{ width: "100%", bgcolor: "var(--beige)" }}
             />
             <TextField
                 required
@@ -99,7 +88,7 @@ const NewUserForm = ({ handleClose }: NewUserFormProps) => {
                 autoComplete="username"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                sx={{ width: "100%", bgcolor: "white" }}
+                sx={{ width: "100%", bgcolor: "var(--beige)" }}
             />
             <TextField
                 required
@@ -108,7 +97,7 @@ const NewUserForm = ({ handleClose }: NewUserFormProps) => {
                 autoComplete="current-password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                sx={{ width: "100%", bgcolor: "white" }}
+                sx={{ width: "100%", bgcolor: "var(--beige)" }}
             />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
@@ -116,15 +105,23 @@ const NewUserForm = ({ handleClose }: NewUserFormProps) => {
                     format="DD/MM/YYYY"
                     value={birthDate}
                     onChange={newValue => setBirthDate(newValue)}
-                    sx={{ width: "100%", bgcolor: "white" }}
+                    sx={{ width: "100%", bgcolor: "var(--beige)" }}
                 />
             </LocalizationProvider>
             <Button variant="contained" type="submit" sx={{
                 width: "100%",
                 height: "56px",
-                fontSize: "16px"
-            }}>Cadastrar</Button>
-        </Box>
+                fontSize: "16px",
+                color: "white",
+                bgcolor: "var(--lightgreen)",
+                fontWeight: 700,
+                padding: "10px 30px",
+                transition: 1,
+                "&:hover": {
+                    bgcolor: "var(--green)"
+                }
+            }}>Cadastrar</Button >
+        </Box >
     )
 }
 

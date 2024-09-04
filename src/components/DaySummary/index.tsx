@@ -17,6 +17,7 @@ const DaySummary = ({ meals }: DaySummaryProps) => {
             display="flex"
             justifyContent="space-around"
             bgcolor="var(--orange)"
+            color="var(--dark-brown)"
             p={1}
         >
             <Typography>Carb: {carbohydrate.toFixed(2)}g </Typography>

@@ -1,13 +1,12 @@
-import CloseIcon from '@mui/icons-material/Close';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import IFoodQuantity from '../../../interfaces/IFoodQuantity';
-import { createMeal, getSummaryMeal } from '../../../utils/meals';
-import SearchFoodModal from '../SearchFoodModal';
-import SelectedFoodsList from '../../SelectedFoodsList';
 import IMealSummary from '../../../interfaces/IMealSummary';
+import { createMeal, getSummaryMeal } from '../../../utils/meals';
+import SelectedFoodsList from '../../SelectedFoodsList';
+import SearchFoodModal from '../SearchFoodModal';
 
 interface NewMealModalProps {
     setMeal: React.Dispatch<React.SetStateAction<IMealSummary[]>>;
@@ -21,17 +20,17 @@ const NewMealModal = ({ setMeal }: NewMealModalProps) => {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-        maxWidth: "600px",
+        minWidth: "325px",
+        maxWidth: "650px",
+        minHeight: "70vh",
         width: "100%",
-        borderRadius: 4,
+        borderRadius: 1,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         gap: "20px",
-        padding: "20px",
+        paddingTop: 4,
+        paddingBottom: 4
     };
 
     const [open, setOpen] = useState(false);
@@ -60,7 +59,7 @@ const NewMealModal = ({ setMeal }: NewMealModalProps) => {
 
     return (
         <Box>
-            <Button variant='contained' onClick={handleOpen} sx={{bgcolor: "var(--brown)", ":hover": {bgcolor: "var(--dark-brown)"}}}>
+            <Button variant='contained' onClick={handleOpen} sx={{ bgcolor: "var(--brown)", ":hover": { bgcolor: "var(--dark-brown)" } }}>
                 Nova refeição
             </Button>
             <Modal
@@ -68,43 +67,35 @@ const NewMealModal = ({ setMeal }: NewMealModalProps) => {
                 onClose={handleClose}
                 aria-labelledby="modal-new-meal"
                 aria-describedby="modal-to-create-a-new-meal-today"
+                sx={{ m: 2, p: 2 }}
             >
                 <Box sx={style}>
-                    <Box component="form" sx={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: "20px",
-                        padding: "20px",
-                    }}
-                        onSubmit={(event) => submitHandler(event)}>
-                        <CloseIcon
-                            onClick={handleClose}
-                            sx={{
-                                position: 'absolute',
-                                cursor: "pointer",
-                                right: 20,
-                                fontSize: "30px",
-                                transition: "0.2s",
-                                ":hover": {
-                                    color: "blue"
-                                }
-                            }} />
-                        <Typography variant="h4" component="h2">Adicione uma refeição</Typography>
+                    <Box
+                        component="form"
+                        sx={{
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            gap: 1
+                        }}
+                        onSubmit={(event) => submitHandler(event)}
+                    >
                         <TextField
                             required
                             label="Nome da refeição"
                             type="text"
                             value={mealName}
                             onChange={(event) => setMealName(event.target.value)}
-                            sx={{ width: "100%", bgcolor: "white" }}
+                            sx={{ width: "100%", bgcolor: "var(--beige)", maxWidth: "90%" }}
                         />
-                        <Typography>Alimentos selecionados: {selectedFoods.length}</Typography>
-                        {selectedFoods.length > 0 && <SelectedFoodsList selectedFoods={selectedFoods} />}
-                        <Button variant="contained" type="submit" color="success">Adicionar</Button>
+                        <Box width="90%" display="flex" gap={2}>
+                            <Button fullWidth variant="contained" type="button" color="error" onClick={handleClose}>Cancelar</Button>
+                            <Button fullWidth variant="contained" type="submit" color="success">Adicionar ({selectedFoods.length})</Button>
+                        </Box>
                     </Box>
-                    <SearchFoodModal setSelectedFoods={setSelectedFoods} />
+                    <SearchFoodModal setSelectedFoods={setSelectedFoods}/>
+                    {selectedFoods.length > 0 && <SelectedFoodsList selectedFoods={selectedFoods} setSelectedFoods={setSelectedFoods} />}
                 </Box>
             </Modal>
         </Box>

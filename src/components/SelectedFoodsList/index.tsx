@@ -1,22 +1,58 @@
+import DeleteIcon from '@mui/icons-material/Delete';
 import { List, ListItem } from "@mui/joy";
+import { Box, IconButton, Typography } from "@mui/material";
 import IFoodQuantity from "../../interfaces/IFoodQuantity";
-import { Button } from "@mui/material";
 
 interface SelectedFoodsListProps {
-    selectedFoods: IFoodQuantity[]
+    selectedFoods: IFoodQuantity[];
+    setSelectedFoods: React.Dispatch<React.SetStateAction<IFoodQuantity[]>>
 }
 
-const SelectedFoodsList = ({ selectedFoods }: SelectedFoodsListProps) => {
+const SelectedFoodsList = ({ selectedFoods, setSelectedFoods }: SelectedFoodsListProps) => {
+
+    const removeFromSelectedFoods = (food: IFoodQuantity) => {
+        setSelectedFoods(prevFoods => prevFoods.filter(prevFood => prevFood.id !== food.id ));
+    }
+
     return (
-        <List component="ul" sx={{display: "flex", flexDirection: "row", flexWrap: "wrap"}}>
-            {selectedFoods.map(food => {
-                return <ListItem key={food.id}>
-                    <Button variant="contained" color="warning">
-                        {food.name} ({food.serving * food.quantity}g)
-                    </Button>
-                </ListItem>
-            })}
-        </List>
+        <Box width="90%" bgcolor="var(--beige)">
+            <Typography m={1} variant="h5" textAlign="center" width="100%" color="var(--dark-brown)">Selecionados:</Typography>
+            <List
+                component="ul"
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    p: 0,
+                    gap: 1
+                }}
+            >
+                {selectedFoods.map(food => {
+                    return <ListItem
+                        key={food.id}
+                        sx={{
+                            p: 0
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                border: "1px solid var(--dark-brown)"
+                            }}
+                        >
+                            <Typography paddingLeft={1} variant='button' color="var(--dark-brown)">
+                                {food.name} ({food.serving * food.quantity}g)
+                            </Typography>
+                            <IconButton color='primary' onClick={() => removeFromSelectedFoods(food)}>
+                                <DeleteIcon sx={{color: "var(--brown)"}}/>
+                            </IconButton>
+                        </Box>
+                    </ListItem>
+                })}
+            </List>
+        </Box>
     )
 }
 

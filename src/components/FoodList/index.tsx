@@ -10,7 +10,7 @@ interface FoodListProps {
 
 const FoodList = ({ foodList, setSelectedFoods }: FoodListProps) => {
     return (
-        <List component="ul" sx={{ width: "100%", maxHeight: 300, overflow: 'auto', borderRadius: 'sm' }}>
+        <List component="ul" sx={{ width: "100%", maxHeight: 300, overflow: 'auto', borderRadius: 'sm', bgcolor: 'var(--beige)', p: 0 }}>
             {foodList.map(food => <FoodItem key={food.id} food={food} setSelectedFoods={setSelectedFoods} />)}
         </List>
     )

@@ -17,7 +17,7 @@
         font-weight: bold;
 
         &:visited {
-            color: var(--brown);
+            color: var(--dark-brown);
         }
 
         &:hover {

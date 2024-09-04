@@ -1,5 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, Typography } from '@mui/material';
+import { Button, IconButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
@@ -26,24 +26,21 @@ const AddFoodModal = ({ open, setOpen, meal, setMealDetails, setMeals }: AddFood
         left: '50%',
         transform: 'translate(-50%, -50%)',
         bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
+        p: 2,
         maxWidth: "600px",
         width: "100%",
-        borderRadius: 4,
+        minHeight: "50vh",
+        borderRadius: 2,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         gap: "20px",
-        padding: "20px",
     };
 
     const handleClose = () => { setOpen(false); setSelectedFoods([]) };
     const [selectedFoods, setSelectedFoods] = useState<IFoodQuantity[]>([]);
 
-    const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const addFoodToMeal = async () => {
         if (selectedFoods.length === 0) {
             alert("Nenhum alimento selecionado! Adicione um alimento e tente novamente.")
             return
@@ -55,8 +52,8 @@ const AddFoodModal = ({ open, setOpen, meal, setMealDetails, setMeals }: AddFood
                 const mealSummary = getSummaryMeal(mealDetails);
                 setMealDetails(mealDetails);
                 setMeals(prevMeals => prevMeals.map(meal => {
-                    if(meal.id === mealSummary.id) {
-                        return {...mealSummary}
+                    if (meal.id === mealSummary.id) {
+                        return { ...mealSummary }
                     }
                     return meal
                 }))
@@ -77,33 +74,24 @@ const AddFoodModal = ({ open, setOpen, meal, setMealDetails, setMeals }: AddFood
                 aria-describedby="modal-to-add-a-new-food-on-this-meal"
             >
                 <Box sx={style}>
-                    <Box component="form" sx={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: "20px",
-                        padding: "20px",
-                    }}
-                        onSubmit={(event) => submitHandler(event)}>
-                        <CloseIcon
-                            onClick={handleClose}
-                            sx={{
-                                position: 'absolute',
-                                cursor: "pointer",
-                                right: 20,
-                                fontSize: "30px",
-                                transition: "0.2s",
-                                ":hover": {
-                                    color: "blue"
-                                }
-                            }} />
-                        <Typography variant="h5" component="h3">Adicione alimentos ao {meal.name} </Typography>
-                        <Typography>Alimentos selecionados: {selectedFoods.length}</Typography>
-                        {selectedFoods.length > 0 && <SelectedFoodsList selectedFoods={selectedFoods} />}
-                        <Button variant="contained" type="submit" color="success">Adicionar</Button>
-                    </Box>
+                    <IconButton
+                        onClick={handleClose}
+                        sx={{
+                            position: 'absolute',
+                            top: 5,
+                            right: 5,
+                            color: "var(--brown)",
+                            ":hover": {
+                                color: "var(--dark-brown)"
+                            }
+                        }}
+                    >
+                        <CloseIcon fontSize='large' />
+                    </IconButton>
+                    <Typography variant="h5" component="h3">Adicione alimentos ao {meal.name} </Typography>
+                    {selectedFoods.length > 0 && <SelectedFoodsList selectedFoods={selectedFoods} setSelectedFoods={setSelectedFoods} />}
                     <SearchFoodModal setSelectedFoods={setSelectedFoods} />
+                    <Button sx={{ width: "90%" }} variant="contained" onClick={addFoodToMeal} color="success">Adicionar ({selectedFoods.length})</Button>
                 </Box>
             </Modal>
         </Box>
