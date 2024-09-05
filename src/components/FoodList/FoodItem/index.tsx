@@ -1,43 +1,64 @@
-import { Box, Button, Checkbox, FormControl, FormHelperText, Input, Typography } from "@mui/joy";
+import { Box, Checkbox, FormControl, FormHelperText, Input, Typography } from "@mui/joy";
 import { ListItem, ListItemButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import IFoodItem from "../../../interfaces/IFoodItem";
 import IFoodQuantity from "../../../interfaces/IFoodQuantity";
 
+
 interface FoodItemProps {
     food: IFoodItem;
+    selectedFoods: IFoodQuantity[];
     setSelectedFoods: React.Dispatch<React.SetStateAction<IFoodQuantity[]>>;
 }
 
-const FoodItem = ({ food, setSelectedFoods }: FoodItemProps) => {
+const FoodItem = ({ food, selectedFoods, setSelectedFoods }: FoodItemProps) => {
 
-    const [quantity, setQuantity] = useState<number>(1);
-    const [isChecked, setIsChecked] = useState<boolean>(false);
+    const [quantity, setQuantity] = useState<number>(() => {
+        let quantityToReturn = 1;
+        selectedFoods.forEach(f => {
+            if (f.id === food.id) quantityToReturn = f.quantity;
+        })
+        return quantityToReturn;
+    });
+    const [isChecked, setIsChecked] = useState<boolean>(selectedFoods.some(f => f.id === food.id));
     const [foodQuantity, setFoodQuantity] = useState<IFoodQuantity>({ quantity, ...food });
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setIsChecked(event.target.checked);
+        if (event.target.checked) {
+            addFoodFromSelectedFoods();
+        } else {
+            removeFoodFromSelectedFoods();
+        }
     };
 
-    const addFood = () => {
+    const addFoodFromSelectedFoods = () => {
         setSelectedFoods(prevSelectedFoods => {
-            const itemIndex = prevSelectedFoods.findIndex(f => f.id === foodQuantity.id);
-
-            if (itemIndex != -1) {
-                return prevSelectedFoods.map((f, index) =>
-                    index === itemIndex
-                        ? { ...f, quantity: f.quantity + foodQuantity.quantity }
-                        : f
-                );
-            }
-
             return [...prevSelectedFoods, foodQuantity];
+        })
+    }
+
+    const removeFoodFromSelectedFoods = () => {
+        setSelectedFoods(prevSelectedFoods => {
+            return prevSelectedFoods.filter(f => f.id !== food.id);
         })
     }
 
     useEffect(() => {
         setFoodQuantity({ quantity, ...food });
     }, [quantity, food])
+
+    useEffect(() => {
+        setSelectedFoods(prevSelectedFoods => prevSelectedFoods.map(f => {
+            if (f.id === foodQuantity.id) {
+                return {
+                    ...f,
+                    quantity: foodQuantity.quantity
+                }
+            }
+            return f;
+        }))
+    }, [foodQuantity, setSelectedFoods])
 
     return (
         <ListItem sx={{ p: 0 }}>
@@ -55,10 +76,7 @@ const FoodItem = ({ food, setSelectedFoods }: FoodItemProps) => {
                     </FormHelperText>
                 </FormControl>
                 {isChecked &&
-                    <Box display="flex" justifyContent="space-between">
-                        <Input type="number" value={quantity} onChange={event => setQuantity(Number(event.target.value))} sx={{ width: 80, zIndex: 1, marginLeft: 3.5 }} />
-                        <Button onClick={addFood} sx={{ zIndex: 1 }}>Adicionar alimento</Button>
-                    </Box>
+                    <Input type="number" value={quantity} onChange={event => setQuantity(Number(event.target.value))} sx={{ width: 80, zIndex: 1, marginLeft: 3.5 }} />
                 }
             </ListItemButton>
         </ListItem>

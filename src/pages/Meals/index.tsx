@@ -1,4 +1,4 @@
-import { Box, List } from "@mui/material";
+import { Box, Divider, List, Typography } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import DatePickerCustom from "../../components/DatePickerCustom";
@@ -34,16 +34,22 @@ const Meals = () => {
                 sx={{
                     bgcolor: "white",
                     width: "100%",
-                    boxShadow: "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px"
+                    boxShadow: "rgba(0, 0, 0, 0.5) 0px 3px 8px"
                 }}>
                 <Box component="header" display="flex" padding={2} alignItems="center" justifyContent="space-between" bgcolor="var(--orange)">
                     <DatePickerCustom date={date} setDate={setDate} />
                     <NewMealModal setMeal={setMeals} />
                 </Box>
+                <Divider sx={{ bgcolor: "var(--brown)" }} />
                 <DaySummary meals={meals} />
-                <List component="ul" sx={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 2 }}>
-                    {meals.map(meal => <MealDetails key={meal.id} meal={meal} setMeals={setMeals} />)}
-                </List>
+                {meals.length > 0
+                    ? <List component="ul" sx={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 2 }}>
+                        {meals.map(meal => <MealDetails key={meal.id} meal={meal} setMeals={setMeals} />)}
+                    </List>
+                    : <Typography variant="h5" bgcolor="var(--beige)" p={2} textAlign="center">
+                        Não existem refeições registradas neste dia.
+                    </Typography>
+                }
             </Box>
         </Box>
     )

@@ -23,6 +23,8 @@ const SelectedFoodsList = ({ selectedFoods, setSelectedFoods }: SelectedFoodsLis
                     display: "flex",
                     flexDirection: "row",
                     flexWrap: "wrap",
+                    justifyContent: "center",
+                    minHeight: 40,
                     p: 0,
                     gap: 1
                 }}

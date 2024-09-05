@@ -5,13 +5,14 @@ import FoodItem from "./FoodItem";
 
 interface FoodListProps {
     foodList: IFoodItem[];
+    selectedFoods: IFoodQuantity[]
     setSelectedFoods: React.Dispatch<React.SetStateAction<IFoodQuantity[]>>;
 }
 
-const FoodList = ({ foodList, setSelectedFoods }: FoodListProps) => {
+const FoodList = ({ foodList, selectedFoods, setSelectedFoods }: FoodListProps) => {
     return (
         <List component="ul" sx={{ width: "100%", maxHeight: 300, overflow: 'auto', borderRadius: 'sm', bgcolor: 'var(--beige)', p: 0 }}>
-            {foodList.map(food => <FoodItem key={food.id} food={food} setSelectedFoods={setSelectedFoods} />)}
+            {foodList.map(food => <FoodItem key={food.id} food={food} selectedFoods={selectedFoods} setSelectedFoods={setSelectedFoods} />)}
         </List>
     )
 }

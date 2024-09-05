@@ -1,5 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Accordion, AccordionDetails, AccordionSummary, Box, IconButton, ListItem, Typography } from "@mui/material";
 import { useEffect, useState } from 'react';
 import IMealDetails from '../../interfaces/IMealDetails';
@@ -39,7 +39,7 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
         <ListItem>
             <Accordion sx={{ bgcolor: "var(--orange)", width: "100%", color: "var(--dark-brown)" }} expanded={expanded} onChange={() => setExpanded(!expanded)}>
                 <AccordionSummary
-                    expandIcon={<IconButton><ArrowDownwardIcon sx={{ color: "var(--brown)", ":hover": { bgcolor: "var(--dark-orange)" } }} fontSize='medium' /></IconButton>}
+                    expandIcon={<IconButton><ArrowDropDownIcon sx={{ color: "var(--brown)" }} fontSize='large' /></IconButton>}
                 >
                     <Box
                         sx={{
@@ -48,29 +48,25 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
                             justifyContent: "space-between",
                             alignItems: "center"
                         }}>
-                        <Box>
-                            <Typography component="h4" variant="h5" fontWeight={700}>
-                                {meal.name}
-                            </Typography>
-                            <Typography>Calorias: {meal.totalCalories.toFixed(2)}kcal </Typography>
-                            <Box sx={{
-                                display: "flex",
-                                gap: "20px"
-                            }}>
-                                <Typography>Carb: {meal.totalCarbohydrates.toFixed(2)}g </Typography>
-                                <Typography>Prot: {meal.totalProtein.toFixed(2)}g </Typography>
-                                <Typography>Gord: {meal.totalFat.toFixed(2)}g </Typography>
-                            </Box>
-                        </Box>
-                        <Box display="flex" alignItems="center">
-                            <IconButton onClick={event => openAddFoodForm(event)} size='large'>
-                                <AddIcon sx={{ color: "var(--brown)" }} />
-                            </IconButton>
-                            <MealMenu meal={meal} setMeals={setMeals} setMealDetails={setMealDetails} />
-                        </Box>
+                        <Typography width="100%" variant='h5' fontWeight={700}>{meal.name}</Typography>
+                        <IconButton onClick={event => openAddFoodForm(event)}>
+                            <AddIcon fontSize="large" sx={{ color: "var(--brown)" }} />
+                        </IconButton>
+                        <MealMenu meal={meal} setMeals={setMeals} setMealDetails={setMealDetails} />
                     </Box>
                 </AccordionSummary>
-                <AccordionDetails sx={{ paddingTop: 0, paddingBottom: 0, bgcolor: "var(--beige)" }}>
+                <AccordionDetails sx={{ p: 0, bgcolor: "var(--beige)" }}>
+                    <Box bgcolor="var(--orange)" paddingRight={1} paddingLeft={1}>
+                        <Typography>Calorias: {meal.totalCalories.toFixed(2)} kcal </Typography>
+                        <Box sx={{
+                            display: "flex",
+                            gap: "20px"
+                        }}>
+                            <Typography>Carb: {meal.totalCarbohydrates.toFixed(2)}g </Typography>
+                            <Typography>Prot: {meal.totalProtein.toFixed(2)}g </Typography>
+                            <Typography>Gord: {meal.totalFat.toFixed(2)}g </Typography>
+                        </Box>
+                    </Box>
                     {mealDetails && <MealDetailsFoodList foodList={mealDetails.foodList} mealId={meal.id} setMeals={setMeals} setMealDetails={setMealDetails} />}
                 </AccordionDetails>
             </Accordion>

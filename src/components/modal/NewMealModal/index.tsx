@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import IMealSummary from '../../../interfaces/IMealSummary';
 import { createMeal, getSummaryMeal } from '../../../utils/meals';
 import SelectedFoodsList from '../../SelectedFoodsList';
 import SearchFoodModal from '../SearchFoodModal';
+import { Add } from '@mui/icons-material';
 
 interface NewMealModalProps {
     setMeal: React.Dispatch<React.SetStateAction<IMealSummary[]>>;
@@ -59,8 +60,18 @@ const NewMealModal = ({ setMeal }: NewMealModalProps) => {
 
     return (
         <Box>
-            <Button variant='contained' onClick={handleOpen} sx={{ bgcolor: "var(--brown)", ":hover": { bgcolor: "var(--dark-brown)" } }}>
-                Nova refeição
+            <Button
+                variant='contained'
+                onClick={handleOpen}
+                sx={{
+                    p: "16px 8px",
+                    bgcolor: "var(--lightgreen)",
+                    gap: 1,
+                    ":hover": { bgcolor: "var(--green)" }
+                }}
+            >
+                <Add />
+                <Typography fontWeight={700} paddingRight={1} >REFEIÇÃO</Typography>
             </Button>
             <Modal
                 open={open}
@@ -89,12 +100,12 @@ const NewMealModal = ({ setMeal }: NewMealModalProps) => {
                             onChange={(event) => setMealName(event.target.value)}
                             sx={{ width: "100%", bgcolor: "var(--beige)", maxWidth: "90%" }}
                         />
+                        <SearchFoodModal selectedFoods={selectedFoods} setSelectedFoods={setSelectedFoods} />
                         <Box width="90%" display="flex" gap={2}>
                             <Button fullWidth variant="contained" type="button" color="error" onClick={handleClose}>Cancelar</Button>
-                            <Button fullWidth variant="contained" type="submit" color="success">Adicionar ({selectedFoods.length})</Button>
+                            <Button fullWidth variant="contained" type="submit" color="success" sx={{ bgcolor: "var(--lightgreen)", ":hover": { bgcolor: "var(--green)" } }}>Adicionar ({selectedFoods.length})</Button>
                         </Box>
                     </Box>
-                    <SearchFoodModal setSelectedFoods={setSelectedFoods}/>
                     {selectedFoods.length > 0 && <SelectedFoodsList selectedFoods={selectedFoods} setSelectedFoods={setSelectedFoods} />}
                 </Box>
             </Modal>

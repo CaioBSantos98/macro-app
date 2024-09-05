@@ -1,19 +1,19 @@
-import CloseIcon from '@mui/icons-material/Close';
-import { Button, IconButton, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import IFoodItem from '../../../interfaces/IFoodItem';
 import IFoodQuantity from '../../../interfaces/IFoodQuantity';
 import { searchFood } from '../../../utils/foods';
 import FoodList from '../../FoodList';
-import { useNavigate } from 'react-router-dom';
 
 interface SearchFoodModalProps {
+    selectedFoods: IFoodQuantity[]
     setSelectedFoods: React.Dispatch<React.SetStateAction<IFoodQuantity[]>>
 }
 
-const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
+const SearchFoodModal = ({ selectedFoods, setSelectedFoods }: SearchFoodModalProps) => {
 
     const style = {
         position: 'absolute',
@@ -40,8 +40,9 @@ const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
     const [foodFound, setFoodFound] = useState(true);
     const navigate = useNavigate();
 
-    const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    const search = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        event.stopPropagation();
         const data = await searchFood(foodName);
         if (data.content.length > 0) {
             setFoodList(data.content);
@@ -64,36 +65,44 @@ const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
                 aria-describedby="modal-modal-description"
                 sx={{ m: 2 }}
             >
-                <Box component="form" sx={style}
-                    onSubmit={(event) => submitHandler(event)}>
-                    <IconButton
-                        onClick={handleClose}
-                        sx={{
-                            position: 'absolute',
-                            top: 10,
-                            right: 10,
-                            transition: "0.2s",
-                            color: "var(--brown)",
-                            ":hover": {
-                                color: "var(--dark-brown)"
-                            }
-                        }}
+                <Box sx={style}>
+                    <Typography
+                        variant='h5'
                     >
-                        <CloseIcon fontSize='large' />
-                    </IconButton>
-                    <Typography variant="h4" component="h2">Selecione um alimento</Typography>
-                    <TextField
-                        required
-                        label="Nome do alimento"
-                        type="text"
-                        value={foodName}
-                        onChange={(event) => setFoodName(event.target.value)}
-                        onFocus={() => setFoodFound(true)}
-                        sx={{ width: "100%", bgcolor: "white" }}
-                    />
-                    <Button fullWidth variant="contained" type="submit" sx={{ bgcolor: "var(--brown)", ":hover": { bgcolor: "var(--dark-brown)" } }}>Pesquisar</Button>
+                        Selecionados: {selectedFoods.length}
+                    </Typography>
+                    <Box component="form" onSubmit={(event) => search(event)} width="100%">
+                        <TextField
+                            required
+                            placeholder="Nome do alimento"
+                            label="Pesquise um alimento"
+                            type="text"
+                            value={foodName}
+                            onChange={(event) => setFoodName(event.target.value)}
+                            onFocus={() => setFoodFound(true)}
+                            sx={{ width: "100%", bgcolor: "white" }}
+                        />
+                        <Box display="flex" width="100%" gap={1} marginTop={1}>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                type="submit"
+                                sx={{ bgcolor: "var(--brown)", ":hover": { bgcolor: "var(--dark-brown)" } }}
+                            >
+                                Pesquisar
+                            </Button>
+                            <Button
+                                onClick={handleClose}
+                                fullWidth
+                                variant="contained"
+                                sx={{ bgcolor: "var(--lightgreen)", ":hover": { bgcolor: "var(--green)" } }}
+                            >
+                                Concluir
+                            </Button>
+                        </Box>
+                    </Box>
                     {foodList.length > 0 &&
-                        <FoodList setSelectedFoods={setSelectedFoods} foodList={foodList} />
+                        <FoodList selectedFoods={selectedFoods} setSelectedFoods={setSelectedFoods} foodList={foodList} />
                     }
                     {!foodFound &&
                         <Box textAlign="center">
@@ -101,7 +110,7 @@ const SearchFoodModal = ({ setSelectedFoods }: SearchFoodModalProps) => {
                             <Typography>Deseja cadastrar "{foodName}"?</Typography>
                             <Button
                                 variant='contained'
-                                color='success'
+                                sx={{ bgcolor: "var(--lightgreen)", ":hover": { bgcolor: "var(--green)" } }}
                                 onClick={() => navigate("/new-food", { state: { foodName: foodName } })}
                             >
                                 Cadastrar

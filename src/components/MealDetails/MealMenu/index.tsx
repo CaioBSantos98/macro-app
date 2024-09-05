@@ -75,9 +75,8 @@ const MealMenu = ({ meal, setMeals, setMealDetails }: MealMenuProps) => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                size='large'
             >
-                <MoreVertIcon sx={{ color: "var(--brown)" }} />
+                <MoreVertIcon fontSize="large" sx={{ color: "var(--brown)" }} />
             </IconButton>
             <Menu
                 id="basic-menu"

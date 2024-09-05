@@ -40,7 +40,12 @@ const NewFoodForm = ({ state, setSucess, setFood }: NewFoodFormProps) => {
                 setSucess(false);
             }
         }
-        register();
+
+        if (allMacrosBiggerThanZero()) {
+            register();
+        } else {
+            alert("Você não pode registrar um alimento com todos os macronutrientes iguais a zero")
+        }
     }
 
     const clearForm = () => {
@@ -50,6 +55,17 @@ const NewFoodForm = ({ state, setSucess, setFood }: NewFoodFormProps) => {
         setCarbohydrate(0);
         setProtein(0);
         setFat(0);
+    }
+
+    const allMacrosBiggerThanZero = (): boolean => {
+        if (carbohydrate <= 0) {
+            if (protein <= 0) {
+                if (fat <= 0) {
+                    return false;
+                }
+            }
+        }
+        return true
     }
 
     return (
@@ -63,7 +79,8 @@ const NewFoodForm = ({ state, setSucess, setFood }: NewFoodFormProps) => {
             autoComplete="off"
             sx={{
                 boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
-                padding: 3
+                padding: 3,
+                bgcolor: "white"
             }}
         >
             <Typography textAlign="center" component="h2" variant="h5">Cadastre um novo alimento</Typography>
@@ -113,7 +130,13 @@ const NewFoodForm = ({ state, setSucess, setFood }: NewFoodFormProps) => {
                 onChange={event => setFat(Number(event.target.value))}
             />
             <Typography sx={{ opacity: 0.5 }}>Campos com * são obrigatórios</Typography>
-            <Button variant="contained" type="submit">Cadastrar</Button>
+            <Button
+                variant="contained"
+                type="submit"
+                sx={{ bgcolor: "var(--lightgreen)", ":hover": { bgcolor: "var(--green)" } }}
+            >
+                Cadastrar
+            </Button>
         </Box>
     )
 }

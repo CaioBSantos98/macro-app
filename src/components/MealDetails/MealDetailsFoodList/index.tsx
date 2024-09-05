@@ -33,7 +33,7 @@ const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: Mea
     }
 
     return (
-        <List component="ul" sx={{ display: 'flex', flexDirection: 'column', gap: 1, bgcolor: "var(--beige)" }}>
+        <List component="ul" sx={{ paddingLeft: 2, paddingRight: 2, display: 'flex', flexDirection: 'column', gap: 1, bgcolor: "var(--beige)" }}>
             {foodList.map(f =>
                 <ListItem key={f.foodDetails.id} sx={{ display: "block", position: "relative", p: 0 }}>
                     <Typography fontWeight={700}>
@@ -41,7 +41,8 @@ const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: Mea
                     </Typography>
                     <Box sx={{
                         display: "flex",
-                        gap: "20px"
+                        gap: "20px",
+                        maxWidth: "70%"
                     }}>
                         <Typography>Calorias: {(f.quantity * f.foodDetails.calories).toFixed(2)}kcal </Typography>
                         <Typography>Carb: {(f.quantity * f.foodDetails.carbohydrate).toFixed(0)}g </Typography>
