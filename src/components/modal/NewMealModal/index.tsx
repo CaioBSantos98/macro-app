@@ -8,12 +8,14 @@ import { createMeal, getSummaryMeal } from '../../../utils/meals';
 import SelectedFoodsList from '../../SelectedFoodsList';
 import SearchFoodModal from '../SearchFoodModal';
 import { Add } from '@mui/icons-material';
+import dayjs from 'dayjs';
 
 interface NewMealModalProps {
+    date: dayjs.Dayjs
     setMeal: React.Dispatch<React.SetStateAction<IMealSummary[]>>;
 }
 
-const NewMealModal = ({ setMeal }: NewMealModalProps) => {
+const NewMealModal = ({ date, setMeal }: NewMealModalProps) => {
 
     const style = {
         position: 'absolute',
@@ -46,7 +48,7 @@ const NewMealModal = ({ setMeal }: NewMealModalProps) => {
             alert("Nenhum alimento selecionado para essa refeição! Adicione um alimento e tente novamente.")
             return
         }
-        const createdMeal = await createMeal(mealName, selectedFoods);
+        const createdMeal = await createMeal(mealName, selectedFoods, date);
         if (createdMeal) {
             const summaryMeal = getSummaryMeal(createdMeal);
             setMeal(prevMeals => [

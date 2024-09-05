@@ -38,7 +38,7 @@ const Meals = () => {
                 }}>
                 <Box component="header" display="flex" padding={2} alignItems="center" justifyContent="space-between" bgcolor="var(--orange)">
                     <DatePickerCustom date={date} setDate={setDate} />
-                    <NewMealModal setMeal={setMeals} />
+                    <NewMealModal setMeal={setMeals} date={date} />
                 </Box>
                 <Divider sx={{ bgcolor: "var(--brown)" }} />
                 <DaySummary meals={meals} />

@@ -2,6 +2,7 @@ import axios from "axios";
 import IMealSummary from "../interfaces/IMealSummary";
 import IFoodQuantity from "../interfaces/IFoodQuantity";
 import IMealDetails from "../interfaces/IMealDetails";
+import dayjs from "dayjs";
 
 axios.defaults.withCredentials = true;
 const url = import.meta.env.VITE_API_URL;
@@ -17,10 +18,11 @@ export const getDayMeals = async (date: string): Promise<IMealSummary[]> => {
     }
 }
 
-export const createMeal = async (mealName: string, foods: IFoodQuantity[]): Promise<IMealDetails | null> => {
+export const createMeal = async (mealName: string, foods: IFoodQuantity[], date: dayjs.Dayjs): Promise<IMealDetails | null> => {
     try {
         const requestBody = {
             name: mealName,
+            date: date.format("YYYY/MM/DD"),
             foodList: foods.map(f => {
                 return { id: f.id, quantity: f.quantity }
             })
