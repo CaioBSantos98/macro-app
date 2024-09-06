@@ -111,7 +111,7 @@ const SearchFoodModal = ({ selectedFoods, setSelectedFoods }: SearchFoodModalPro
                             <Button
                                 variant='contained'
                                 sx={{ bgcolor: "var(--lightgreen)", ":hover": { bgcolor: "var(--green)" } }}
-                                onClick={() => navigate("/new-food", { state: { foodName: foodName } })}
+                                onClick={() => navigate("/foods/create", { state: { foodName: foodName } })}
                             >
                                 Cadastrar
                             </Button>

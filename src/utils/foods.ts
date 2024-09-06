@@ -14,6 +14,16 @@ export const searchFood = async (foodName: string): Promise<IPageResponse> => {
     }
 }
 
+export const pageSearchFood = async (foodName: string, page: number): Promise<IPageResponse> => {
+    try {
+        const response = await axios.get<IPageResponse>(`${url}/api/food/search/${foodName}?page=${page}`)
+        return response.data;
+    } catch (error) {
+        console.error('Failed to search food', error);
+        throw new Error('Not found!')
+    }
+}
+
 export const registerFood = async (foodName: string, brand: string, serving: number, carbohydrate: number, protein: number, fat: number): Promise<IFoodItem> => {
     const body = {
         name: foodName,

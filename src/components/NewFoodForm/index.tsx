@@ -83,7 +83,7 @@ const NewFoodForm = ({ state, setSucess, setFood }: NewFoodFormProps) => {
                 bgcolor: "white"
             }}
         >
-            <Typography textAlign="center" component="h2" variant="h5">Cadastre um novo alimento</Typography>
+            <Typography textAlign="center" component="h2" variant="h5" color="var(--dark-orange)">Cadastre um novo alimento</Typography>
             <TextField
                 size="small"
                 required

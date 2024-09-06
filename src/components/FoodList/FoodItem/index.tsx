@@ -64,7 +64,7 @@ const FoodItem = ({ food, selectedFoods, setSelectedFoods }: FoodItemProps) => {
         <ListItem sx={{ p: 0 }}>
             <ListItemButton sx={{ display: "block" }} >
                 <FormControl sx={{ width: "100%" }}>
-                    <Checkbox overlay label={food.name} checked={isChecked} onChange={handleCheckboxChange} />
+                    <Checkbox overlay label={food.brand ? `${food.name} (${food.brand})` : `${food.name}`} checked={isChecked} onChange={handleCheckboxChange} />
                     <FormHelperText>
                         <Box display="flex" gap={2}>
                             <Typography>Porção: {(food.serving * quantity).toFixed(0)}g</Typography>

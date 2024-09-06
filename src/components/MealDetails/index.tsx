@@ -1,6 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { Accordion, AccordionDetails, AccordionSummary, Box, IconButton, ListItem, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, IconButton, ListItem, Typography } from "@mui/material";
 import { useEffect, useState } from 'react';
 import IMealDetails from '../../interfaces/IMealDetails';
 import IMealSummary from "../../interfaces/IMealSummary";
@@ -39,6 +39,11 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
         <ListItem>
             <Accordion sx={{ bgcolor: "var(--orange)", width: "100%", color: "var(--dark-brown)" }} expanded={expanded} onChange={() => setExpanded(!expanded)}>
                 <AccordionSummary
+                    sx={{
+                        "& .MuiAccordionSummary-content": {
+                            margin: "5px 0"
+                        }
+                    }}
                     expandIcon={<IconButton><ArrowDropDownIcon sx={{ color: "var(--brown)" }} fontSize='large' /></IconButton>}
                 >
                     <Box
@@ -48,7 +53,10 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
                             justifyContent: "space-between",
                             alignItems: "center"
                         }}>
-                        <Typography width="100%" variant='h5' fontWeight={700}>{meal.name}</Typography>
+                        <Typography width="100%" variant='h5' fontWeight={700}>
+                            {meal.name}
+                            <Typography>Calorias: {meal.totalCalories.toFixed(2)} kcal </Typography>
+                        </Typography>
                         <IconButton onClick={event => openAddFoodForm(event)}>
                             <AddIcon fontSize="large" sx={{ color: "var(--brown)" }} />
                         </IconButton>
@@ -56,17 +64,16 @@ const MealDetails = ({ meal, setMeals }: MealDetailsProps) => {
                     </Box>
                 </AccordionSummary>
                 <AccordionDetails sx={{ p: 0, bgcolor: "var(--beige)" }}>
-                    <Box bgcolor="var(--orange)" paddingRight={1} paddingLeft={1}>
-                        <Typography>Calorias: {meal.totalCalories.toFixed(2)} kcal </Typography>
-                        <Box sx={{
-                            display: "flex",
-                            gap: "20px"
-                        }}>
-                            <Typography>Carb: {meal.totalCarbohydrates.toFixed(2)}g </Typography>
-                            <Typography>Prot: {meal.totalProtein.toFixed(2)}g </Typography>
-                            <Typography>Gord: {meal.totalFat.toFixed(2)}g </Typography>
-                        </Box>
+                    <Box sx={{
+                        display: "flex",
+                        gap: "20px",
+                        marginLeft: 2
+                    }}>
+                        <Typography>Carb: {meal.totalCarbohydrates.toFixed(2)}g </Typography>
+                        <Typography>Prot: {meal.totalProtein.toFixed(2)}g </Typography>
+                        <Typography>Gord: {meal.totalFat.toFixed(2)}g </Typography>
                     </Box>
+                    <Divider sx={{ marginLeft: 2, marginRight: 2 }} />
                     {mealDetails && <MealDetailsFoodList foodList={mealDetails.foodList} mealId={meal.id} setMeals={setMeals} setMealDetails={setMealDetails} />}
                 </AccordionDetails>
             </Accordion>

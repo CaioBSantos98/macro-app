@@ -11,6 +11,9 @@ const NavBar = () => {
                 <ListItem>
                     <Link to={"meals"}>Refeições </Link>
                 </ListItem>
+                <ListItem>
+                    <Link to={"foods"}>Alimentos </Link>
+                </ListItem>
             </List>
             <ProfileMenu />
         </Box>
