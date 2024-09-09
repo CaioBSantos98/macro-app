@@ -22,9 +22,7 @@ const DefaultPage = () => {
     }, [setAuthState])
 
     useEffect(() => {
-        console.log("Executou")
         if (!auth.isAuthenticated) {
-            alert("Área restrita à usuários autenticados. Faça login caso queira acessar essa página!")
             navigate("/")
         }
     }, [])

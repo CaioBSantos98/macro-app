@@ -112,3 +112,20 @@ export const deleteMeal = async (mealId: string): Promise<number> => {
         throw new Error(`Failed to delete meal: ${mealId}`);
     }
 }
+
+export const updateMeal = async (mealId: string, foodId: string, quantity: number): Promise<IMealDetails> => {
+    const requestBody = {
+        mealId: mealId,
+        foodId: foodId,
+        newQuantity: quantity
+    }
+
+    try {
+        const response = await axios.put(`${url}/api/meal/update`, requestBody );
+        const data: IMealDetails = response.data;
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to update meal: ${mealId}`);
+    }
+}

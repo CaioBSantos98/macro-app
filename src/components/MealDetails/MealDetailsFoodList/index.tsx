@@ -1,9 +1,11 @@
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { Box, Divider, IconButton, List, ListItem, Typography } from "@mui/material";
+import { Box, Divider, IconButton, List, ListItem, Tooltip, Typography } from "@mui/material";
+import { useState } from 'react';
 import IFoodResponseDto from "../../../interfaces/IFoodResponseDto";
 import IMealDetails from "../../../interfaces/IMealDetails";
 import IMealSummary from "../../../interfaces/IMealSummary";
 import { getSummaryMeal, removeFoodOnMeal } from "../../../utils/meals";
+import UpdateMealModal from '../../modal/UpdateMealModal';
 
 interface MealDetailsFoodListProps {
     foodList: IFoodResponseDto[];
@@ -13,6 +15,8 @@ interface MealDetailsFoodListProps {
 }
 
 const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: MealDetailsFoodListProps) => {
+
+    const [foodToUpdate, setFoodToUpdate] = useState<IFoodResponseDto | null>(null);
 
     const removeFoodItem = (food: IFoodResponseDto) => {
         const confirmed = confirm(`Realmente deseja remover ${food.foodDetails.name} ?`)
@@ -36,9 +40,11 @@ const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: Mea
         <List component="ul" sx={{ paddingLeft: 2, paddingRight: 2, display: 'flex', flexDirection: 'column', gap: 1, bgcolor: "var(--beige)" }}>
             {foodList.map(f =>
                 <ListItem key={f.foodDetails.id} sx={{ display: "block", position: "relative", p: 0 }}>
-                    <Typography fontWeight={700}>
-                        {f.foodDetails.name} ({(f.foodDetails.serving * f.quantity).toFixed(0)}g)
-                    </Typography>
+                    <Tooltip title="Editar" placement="bottom-start">
+                        <Typography fontWeight={700} sx={{ cursor: 'pointer', ":hover": { textDecoration: "underline" } }} onClick={() => { setFoodToUpdate(f) }}>
+                            {f.foodDetails.name} ({(f.foodDetails.serving * f.quantity).toFixed(0)}g)
+                        </Typography>
+                    </Tooltip>
                     <Box sx={{
                         display: "flex",
                         gap: "20px",
@@ -53,6 +59,7 @@ const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: Mea
                         <DeleteOutlineOutlinedIcon fontSize='large' sx={{ color: "var(--brown)" }} />
                     </IconButton>
                     <Divider />
+                    {foodToUpdate && <UpdateMealModal food={foodToUpdate} setFood={setFoodToUpdate} mealId={mealId} setMealDetails={setMealDetails} setMeals={setMeals} />}
                 </ListItem>
             )}
         </List>
