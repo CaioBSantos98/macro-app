@@ -47,7 +47,7 @@ const UpdateMealModal = ({ food, setFood, mealId, setMeals, setMealDetails }: Up
             setMealDetails(mealDetails);
             setMeals(prevMeals => prevMeals.map(meal => {
                 if (meal.id === mealSummary.id) {
-                    return {...mealSummary}
+                    return { ...mealSummary }
                 }
                 return meal
             }))
@@ -60,45 +60,43 @@ const UpdateMealModal = ({ food, setFood, mealId, setMeals, setMealDetails }: Up
     }
 
     return (
-        <Box>
-            <Modal
-                open={food != null}
-                onClose={handleClose}
-                aria-labelledby="modal-update-meal"
-                aria-describedby="modal-to-update-a-food-on-meal"
-                sx={{ m: 2 }}
-            >
-                <Box sx={style}>
-                    {food &&
-                        <Box width="90%">
-                            <Typography variant="h4" component="h4" color="var(--dark-orange)" textAlign="center" marginBottom={2}>
-                               {food?.foodDetails.name} {food?.foodDetails.brand && `(${food.foodDetails.brand})`}
-                            </Typography>
-                            <TextField fullWidth label="Quantidade" type="number" value={quantity} onChange={event => setQuantity(Number(event.target.value))} />
-                            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                                Porção: {(food.foodDetails.serving * quantity).toFixed(0)}g
-                            </Typography>
-                            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                                Calorias: {(food.foodDetails.calories * quantity).toFixed(2)} kcal
-                            </Typography>
-                            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                                Carboidratos: {(food.foodDetails.carbohydrate * quantity).toFixed(2)}g
-                            </Typography>
-                            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                                Proteína: {(food.foodDetails.protein * quantity).toFixed(2)}g
-                            </Typography>
-                            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                                Gordura: {(food.foodDetails.fat * quantity).toFixed(2)}g
-                            </Typography>
-                        </Box>
-                    }
-                    <Box width="90%" display="flex" gap={2}>
-                        <Button fullWidth variant="contained" type="button" color="error" onClick={handleClose}>Cancelar</Button>
-                        <Button fullWidth onClick={update} variant="contained" color="success" sx={{ bgcolor: "var(--lightgreen)", ":hover": { bgcolor: "var(--green)" } }}>Concluir</Button>
+        <Modal
+            open={food != null}
+            onClose={handleClose}
+            aria-labelledby="modal-update-meal"
+            aria-describedby="modal-to-update-a-food-on-meal"
+            sx={{ m: 2 }}
+        >
+            <Box sx={style}>
+                {food &&
+                    <Box width="90%">
+                        <Typography variant="h4" component="h4" color="var(--dark-orange)" textAlign="center" marginBottom={2}>
+                            {food?.foodDetails.name} {food?.foodDetails.brand && `(${food.foodDetails.brand})`}
+                        </Typography>
+                        <TextField fullWidth label="Quantidade" type="number" value={quantity} onChange={event => setQuantity(Number(event.target.value))} />
+                        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                            Porção: {(food.foodDetails.serving * quantity).toFixed(0)}g
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                            Calorias: {(food.foodDetails.calories * quantity).toFixed(2)} kcal
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                            Carboidratos: {(food.foodDetails.carbohydrate * quantity).toFixed(2)}g
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                            Proteína: {(food.foodDetails.protein * quantity).toFixed(2)}g
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                            Gordura: {(food.foodDetails.fat * quantity).toFixed(2)}g
+                        </Typography>
                     </Box>
+                }
+                <Box width="90%" display="flex" gap={2}>
+                    <Button fullWidth variant="contained" type="button" color="error" onClick={handleClose}>Cancelar</Button>
+                    <Button fullWidth onClick={update} variant="contained" color="success" sx={{ bgcolor: "var(--lightgreen)", ":hover": { bgcolor: "var(--green)" } }}>Concluir</Button>
                 </Box>
-            </Modal>
-        </Box>
+            </Box>
+        </Modal>
     );
 }
 

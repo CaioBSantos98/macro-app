@@ -59,9 +59,9 @@ const MealDetailsFoodList = ({ foodList, mealId, setMeals, setMealDetails }: Mea
                         <DeleteOutlineOutlinedIcon fontSize='large' sx={{ color: "var(--brown)" }} />
                     </IconButton>
                     <Divider />
-                    {foodToUpdate && <UpdateMealModal food={foodToUpdate} setFood={setFoodToUpdate} mealId={mealId} setMealDetails={setMealDetails} setMeals={setMeals} />}
                 </ListItem>
             )}
+            {foodToUpdate && <UpdateMealModal food={foodToUpdate} setFood={setFoodToUpdate} mealId={mealId} setMealDetails={setMealDetails} setMeals={setMeals} />}
         </List>
     )
 }

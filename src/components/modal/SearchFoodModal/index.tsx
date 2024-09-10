@@ -1,11 +1,11 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, Pagination, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import IFoodItem from '../../../interfaces/IFoodItem';
 import IFoodQuantity from '../../../interfaces/IFoodQuantity';
-import { searchFood } from '../../../utils/foods';
+import IPageResponse from '../../../interfaces/IPageResponse';
+import { pageSearchFood, searchFood } from '../../../utils/foods';
 import FoodList from '../../FoodList';
 
 interface SearchFoodModalProps {
@@ -34,9 +34,10 @@ const SearchFoodModal = ({ selectedFoods, setSelectedFoods }: SearchFoodModalPro
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => { setOpen(false); setFoodList([]); setFoodName('') };
+    const handleClose = () => { setOpen(false); setPageResponse(null); setFoodName(''); setPage(1) };
     const [foodName, setFoodName] = useState('');
-    const [foodList, setFoodList] = useState<IFoodItem[]>([]);
+    const [page, setPage] = useState(1);
+    const [pageResponse, setPageResponse] = useState<IPageResponse | null>(null);
     const [foodFound, setFoodFound] = useState(true);
     const navigate = useNavigate();
 
@@ -44,14 +45,22 @@ const SearchFoodModal = ({ selectedFoods, setSelectedFoods }: SearchFoodModalPro
         event.preventDefault();
         event.stopPropagation();
         const data = await searchFood(foodName);
+        setPageResponse(data);
         if (data.content.length > 0) {
-            setFoodList(data.content);
             setFoodFound(true);
         } else {
-            setFoodList([]);
             setFoodFound(false);
         }
     }
+
+    const handlePaginationChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        const pageSearch = async () => {
+            const response = await pageSearchFood(foodName, value - 1);
+            setPageResponse(response);
+        }
+        pageSearch();
+        setPage(value);
+    };
 
     return (
         <Box width="90%">
@@ -101,8 +110,11 @@ const SearchFoodModal = ({ selectedFoods, setSelectedFoods }: SearchFoodModalPro
                             </Button>
                         </Box>
                     </Box>
-                    {foodList.length > 0 &&
-                        <FoodList selectedFoods={selectedFoods} setSelectedFoods={setSelectedFoods} foodList={foodList} />
+                    {pageResponse && pageResponse.content.length > 0 &&
+                        <>
+                            <FoodList selectedFoods={selectedFoods} setSelectedFoods={setSelectedFoods} foodList={pageResponse.content} />
+                            <Pagination count={pageResponse?.totalPages} page={page} onChange={handlePaginationChange} />
+                        </>
                     }
                     {!foodFound &&
                         <Box textAlign="center">
